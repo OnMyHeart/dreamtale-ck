@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>区域维护</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link href="http://dreamtale.iok.la/static/admin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet" />
+    <link href="http://dreamtale.iok.la/static/admin/css/font-awesome.css?v=4.4.0" rel="stylesheet" />
+    <link href="http://dreamtale.iok.la/static/admin/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" />
+    <link href="http://dreamtale.iok.la/static/admin/css/animate.css" rel="stylesheet" />
+    <link href="http://dreamtale.iok.la/static/admin/css/style.css?v=4.1.0" rel="stylesheet" />
+    <!-- 全局js -->
+    <script src="http://dreamtale.iok.la/static/admin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="http://dreamtale.iok.la/static/admin/js/bootstrap.min.js?v=3.3.6"></script>
+    <!-- 自定义js -->
+    <script src="http://dreamtale.iok.la/static/admin/js/content.js?v=1.0.0"></script>
+    <script src="http://dreamtale.iok.la/static/common/js/common.js?v=1.0.0"></script>
+    <!-- Bootstrap table -->
+    <script src="http://dreamtale.iok.la/static/admin/js/plugins/bootstrap-table/bootstrap-table.min.js?v=1.9.0"></script>
+    <script src="http://dreamtale.iok.la/static/admin/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js?v=1.9.0"></script>
+    <script src="http://dreamtale.iok.la/static/admin/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js?v=1.0.0"></script>
+    <!-- layer 弹框 -->
+    <script src="http://dreamtale.iok.la/static/layer/dist/layer.js?v=1.0.0"></script>
+    <!-- Peity -->
+    <script>
+        $(function() {
+            $('#exampleTableEvents').bootstrapTable({
+                url: "queryDistrictList",
+                search: false,
+                striped: true,
+                pagination: true,
+                showRefresh: true,
+                showToggle: true,
+                showColumns: true,
+                dataType: "json",
+                iconSize: 'outline',
+                cache: false,
+                toolbar: '#exampleTableEventsToolbar',
+                icons: {
+                    refresh: 'glyphicon-repeat',
+                    toggle: 'glyphicon-list-alt',
+                    columns: 'glyphicon-list'
+                },
+                sidePagination: "server",
+                columns: [
+                    {field:"id",title:"区域编号",align: 'center', valign: 'middle',data:"id"},
+                    {field:"name",title:"区域名称",align: 'center', valign: 'middle',data:"name"},
+                    {field:"opt",title:"操作",align: 'center', valign: 'middle',data:"opt",
+                        formatter:function (value, row, index) {
+                            return ['<button type="button" class="delDistrict btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash" aria-hidden="true"></i> 删除</button>'].join("");
+                        },
+                        events: {"click .delDistrict":function (e, value, row, index) {
+                            layer.open({
+                                title:"删除前的确认",
+                                content:"确定删除<font color='red'>"+row.name+"</font>（<font color='red'>"+row.id+"</font>）？",
+                                btn:["确定","取消"],
+                                btn1:function (index) {
+                                    //开始执行删除操作
+                                    var ajaxObj = {url: 'del',param:{"id":row.id},method:"GET",async:false};
+                                    commonJS.sendAjaxRequest(ajaxObj, function (value) {
+                                        if(value.data==true){
+                                            layer.alert("删除成功！");
+                                        } else {
+                                            layer.alert("删除<font color='red'>"+row.name+"</font>（<font color='red'>"+row.id+"</font>）失败！");
+                                        }
+                                    });
+                                    window.location.reload();
+                                },
+                                btn2:function (index) {
+                                    layer.close(index);
+                                }
+                            });
+                        }}
+                    }
+                ]
+            });
+
+            $("#add_district").on("click", function () {
+                layer.prompt({title: '请输入区域名称', formType: 3}, function(pass, index){
+                    if(pass==null || pass=="" || pass==undefined){
+                        layer.msg("区域名称不能为空！");
+                        return;
+                    }
+                    var ajaxObj = {url: 'add',param:{"name":pass},method:"POST",async:false};
+                    commonJS.sendAjaxRequest(ajaxObj, function (data) {
+                        if(data.data==true){
+                            layer.msg('新增区域成功！');
+                        } else {
+                            layer.msg("新增区域失败！")
+                        }
+                        layer.close(index);
+                        window.location.reload();
+                    });
+                });
+            });
+        });
+    </script>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <!-- Panel Other -->
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>区域列表</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+                </div>
+            </div>
+            <div class="row row-lg">
+                <div class="col-sm-12">
+                    <!-- Example Events -->
+                    <div class="example-wrap">
+                        <div class="example">
+                            <div class="btn-group hidden-xs" id="exampleTableEventsToolbar" role="group">
+                                <button type="button" class="btn btn-success" id="add_district">
+                                    <i class="glyphicon glyphicon-plus" aria-hidden="true">新增区域</i>
+                                </button>
+                            </div>
+                            <table id="exampleTableEvents" data-mobile-responsive="true"></table>
+                        </div>
+                    </div>
+                    <!-- End Example Events -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Panel Other -->
+</div>
+
+</body>
+</html>

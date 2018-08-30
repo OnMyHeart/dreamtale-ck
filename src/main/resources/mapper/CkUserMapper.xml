@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dreamtale.ck.mapper.CkUserMapper" >
+  <resultMap id="BaseResultMap" type="com.dreamtale.ck.entity.pojo.CkUser" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="district_no" property="districtNo" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, phone, name, district_no, status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ck_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ck_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.dreamtale.ck.entity.pojo.CkUser" >
+    insert into ck_user (id, phone, name, 
+      district_no, status)
+    values (#{id,jdbcType=BIGINT}, #{phone,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{districtNo,jdbcType=BIGINT},1)
+  </insert>
+  <insert id="insertSelective" parameterType="com.dreamtale.ck.entity.pojo.CkUser" >
+    insert into ck_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="districtNo != null" >
+        district_no,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="districtNo != null" >
+        #{districtNo,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dreamtale.ck.entity.pojo.CkUser" >
+    update ck_user
+    <set >
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="districtNo != null" >
+        district_no = #{districtNo,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dreamtale.ck.entity.pojo.CkUser" >
+    update ck_user
+    set phone = #{phone,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      district_no = #{districtNo,jdbcType=BIGINT},
+      status = #{status,jdbcType=SMALLINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="queryUserList" resultType="com.dreamtale.ck.entity.json.CkUserListJson" parameterType="com.dreamtale.ck.entity.param.CkUserListQueryParam" >
+    SELECT cu.id AS id, cu.name AS name, cu.phone AS phone, cu.district_no AS districtNo, cd.name AS districtName
+    FROM ck_user cu
+    LEFT OUTER JOIN ck_district cd ON cd.id=cu.district_no
+    WHERE cu.status = 1
+    ORDER BY cu.id DESC
+  </select>
+
+</mapper>

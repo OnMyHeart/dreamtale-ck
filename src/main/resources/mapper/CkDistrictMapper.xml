@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dreamtale.ck.mapper.CkDistrictMapper" >
+  <resultMap id="BaseResultMap" type="com.dreamtale.ck.entity.pojo.CkDistrict" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ck_district
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ck_district
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.dreamtale.ck.entity.pojo.CkDistrict" >
+    insert into ck_district (id, name, status)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},1)
+  </insert>
+  <insert id="insertSelective" parameterType="com.dreamtale.ck.entity.pojo.CkDistrict" >
+    insert into ck_district
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dreamtale.ck.entity.pojo.CkDistrict" >
+    update ck_district
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dreamtale.ck.entity.pojo.CkDistrict" >
+    update ck_district
+    set name = #{name,jdbcType=VARCHAR},
+    status = #{status,jdbcType=SMALLINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <insert id="addDistrict" parameterType="java.lang.String">
+    INSERT INTO ck_district (name, status) VALUES (#{name,jdbcType=VARCHAR}, 1)
+  </insert>
+  <select id="queryDistrictList" resultMap="BaseResultMap" parameterType="com.dreamtale.ck.entity.param.CkDistrictListQueryParam">
+    SELECT
+    <include refid="Base_Column_List"  />
+    FROM ck_district
+    WHERE status = 1
+    ORDER BY id DESC
+  </select>
+</mapper>

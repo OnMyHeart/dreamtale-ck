@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dreamtale.ck.mapper.CkOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.dreamtale.ck.entity.pojo.CkOrder" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="salesman_no" property="salesmanNo" jdbcType="VARCHAR" />
+    <result column="low_no" property="lowNo" jdbcType="VARCHAR" />
+    <result column="batch_no" property="batchNo" jdbcType="VARCHAR" />
+    <result column="product_id" property="productId" jdbcType="BIGINT" />
+    <result column="count" property="count" jdbcType="BIGINT" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, salesman_no, batch_no, low_no, product_id, count, price, amount, create_time, status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ck_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ck_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.dreamtale.ck.entity.pojo.CkOrder" >
+    insert into ck_order (id, salesman_no, batch_no, low_no, product_id,
+      count, price, amount, 
+      create_time, status)
+    values (#{id,jdbcType=BIGINT}, #{salesmanNo,jdbcType=VARCHAR},#{batchNo,jdbcType=VARCHAR},#{lowNo,jdbcType=VARCHAR}, #{productId,jdbcType=BIGINT},
+      #{count,jdbcType=BIGINT}, #{price,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, 
+      now())
+  </insert>
+
+  <insert id="batchInsert" parameterType="java.util.List" >
+    insert into ck_order (id, salesman_no, batch_no, low_no, product_id,
+      count, price, amount,
+      create_time, status)
+    values 
+    <foreach collection="orderList" item="order" index="index" separator="," >
+      (#{order.id,jdbcType=BIGINT}, #{order.salesmanNo,jdbcType=VARCHAR},#{order.batchNo,jdbcType=VARCHAR},#{order.lowNo,jdbcType=VARCHAR}, #{order.productId,jdbcType=BIGINT},
+      #{order.count,jdbcType=BIGINT}, #{order.price,jdbcType=DECIMAL}, #{order.amount,jdbcType=DECIMAL},
+      now(),1)
+    </foreach>
+
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.dreamtale.ck.entity.pojo.CkOrder" >
+    insert into ck_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="salesmanNo != null" >
+        salesman_no,
+      </if>
+
+      <if test="batchNo != null" >
+        batch_no,
+      </if>
+
+      <if test="lowNo != null" >
+        low_no,
+      </if>
+
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="salesmanNo != null" >
+        #{salesmanNo,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNo != null" >
+        #{batch_no,jdbcType=VARCHAR},
+      </if>
+      <if test="lowNo != null" >
+        #{low_,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=BIGINT},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dreamtale.ck.entity.pojo.CkOrder" >
+    update ck_order
+    <set >
+      <if test="salesmanNo != null" >
+        salesman_no = #{salesmanNo,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNo != null" >
+        batch_no = #{salesmanNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lowNo != null" >
+        low_no = #{salesmanNo,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=BIGINT},
+      </if>
+      <if test="count != null" >
+        count = #{count,jdbcType=BIGINT},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dreamtale.ck.entity.pojo.CkOrder" >
+    update ck_order
+    set salesman_no = #{salesmanNo,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=BIGINT},
+      count = #{count,jdbcType=BIGINT},
+      price = #{price,jdbcType=DECIMAL},
+      amount = #{amount,jdbcType=DECIMAL},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      status=#{status,jdbcType=SMALLINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="queryCkOrderList" resultType="com.dreamtale.ck.entity.json.CkOrderListJson" parameterType="com.dreamtale.ck.entity.param.CkOrderListQueryParam">
+    SELECT
+    co.id AS id, co.salesman_no AS salesmanNo, co.batch_no AS batchNo, co.low_no AS lowNo, co.product_id as productId, co.count as count,
+    co.price AS  price, co.amount AS  amount, co.create_time AS createTime,
+    cd.id AS districtNo, cd.name AS districtName, cu.name AS salesmanName, cu.phone AS salesmanPhone,
+    cp.no AS productCode, cp.name AS productName, cp.unit AS unit, cp.specification AS specification
+     FROM ck_order co
+     LEFT OUTER JOIN ck_user cu ON cu.id=co.salesman_no
+     LEFT OUTER JOIN ck_district cd ON cu.district_no=cd.id
+     LEFT OUTER JOIN ck_product cp ON cp.id=co.product_id
+     WHERE co.status = 1
+     ORDER BY create_time DESC, id DESC
+  </select>
+  <!-- 根据日期时间段统业务员的计销售额排行 -->
+  <select id="salesMoneyByDate" resultType="com.dreamtale.ck.entity.json.CkSalesMoneyJson" parameterType="com.dreamtale.ck.entity.param.CkStatisticsQueryParam">
+    SELECT
+      ca.amount AS  amount,
+      cu.`name` AS salesmanName,
+      cu.id AS salesmanId,
+      cu.phone AS salesmanPhone,
+      ca.count AS salesmanCount
+    FROM
+      ( SELECT ck.salesman_no, SUM( ck.amount ) AS amount, SUM( ck.count ) AS count FROM ck_order ck
+      <where>
+        ck.status = 1
+        <if test="startDate!=null">
+          AND ck.create_time <![CDATA[ >= ]]> #{startDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="endDate!=null">
+          AND ck.create_time <![CDATA[ < ]]> #{endDate,jdbcType=TIMESTAMP}
+        </if>
+      </where>
+      GROUP BY ck.salesman_no ) ca
+      LEFT OUTER JOIN ck_user cu ON cu.id = ca.salesman_no
+      ORDER BY
+      ca.amount DESC,
+      ca.count DESC
+  </select>
+  <!-- 根据日期时间段统计销量排行 -->
+  <select id="salesRankingByDate" resultType="com.dreamtale.ck.entity.json.CkSalesRankingJson" parameterType="com.dreamtale.ck.entity.param.CkStatisticsQueryParam">
+    SELECT
+      cp.id AS productId,
+      cp.`name` AS productName,
+      cc.count AS productCount
+    FROM
+      ( SELECT co.product_id, SUM( co.count ) AS count FROM ck_order co
+      <where>
+        co.status = 1
+        <if test="startDate!=null">
+          AND co.create_time <![CDATA[ >= ]]> #{startDate,jdbcType=TIMESTAMP}
+        </if>
+        <if test="endDate!=null">
+          AND co.create_time <![CDATA[ < ]]> #{endDate,jdbcType=TIMESTAMP}
+        </if>
+      </where>
+      GROUP BY co.product_id ) cc
+    LEFT OUTER JOIN ck_product cp ON cp.id = cc.product_id
+    ORDER BY
+	  cc.count DESC,
+	  cc.product_id ASC
+  </select>
+</mapper>

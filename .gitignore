@@ -1,0 +1,13 @@
+.idea/
+logs/
+build/
+.class
+/.gradle/*
+/dreamtale-ck.iml
+.settings/
+.git/
+.gradle/
+.classpath
+.project
+gradlew
+gradlew.bat
