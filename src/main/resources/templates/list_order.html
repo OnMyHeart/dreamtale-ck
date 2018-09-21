@@ -135,7 +135,7 @@
         $("#add").on("click", function () {
 
             //加载业务员下拉框
-            var ajaxObj = {url: '/user/queryUserList',param:{"offset":0, "limit":100},method:"GET",async:false};
+            var ajaxObj = {url: '/admin/ck/user/queryUserList',param:{"offset":0, "limit":100},method:"GET",async:false};
             commonJS.sendAjaxRequest(ajaxObj, function (data) {
                 if(data.rows!=null){
                     var html = "<option value=''>请选择业务员</option>";
@@ -151,7 +151,7 @@
             $('#productList').bootstrapTable('destroy');
             //加载商品列表
             $('#productList').bootstrapTable({
-                url: "/product/queryProductList",
+                url: "/admin/ck/product/queryProductList",
                 search: false,
                 striped: true,
                 pagination: true,

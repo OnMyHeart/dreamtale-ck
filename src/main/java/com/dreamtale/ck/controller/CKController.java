@@ -11,37 +11,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author dream
  */
 @Controller
+@RequestMapping("/admin/ck")
 public class CKController {
 
     @Autowired
     CKService ckService;
 
-    @RequestMapping("/")
+    @RequestMapping("/index.html")
     public String index(ModelMap modelMap){
         return "index";
     }
 
-    @RequestMapping("/order/list")
+    @RequestMapping("/order/list.html")
     public String listOrder(ModelMap modelMap){
         return "list_order";
     }
 
-    @RequestMapping("/product/list")
+    @RequestMapping("/product/list.html")
     public String listProduct(ModelMap modelMap){
         return "list_product";
     }
 
-    @RequestMapping("/user/list")
+    @RequestMapping("/user/list.html")
     public String listUser(ModelMap modelMap){
         return "list_user";
     }
 
-    @RequestMapping("/district/list")
+    @RequestMapping("/district/list.html")
     public String listDistrict(ModelMap modelMap){
         return "list_district";
     }
 
-    @RequestMapping("/desktop")
+    @RequestMapping("/desktop.html")
     public String desktop(ModelMap modelMap){
         //统计信息
         modelMap.put("statisticsInfo",ckService.queryStatisticsInfo());
