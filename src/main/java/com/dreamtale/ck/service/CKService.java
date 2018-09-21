@@ -133,6 +133,7 @@ public class CKService {
         CkStatisticsQueryParam ckStatisticsQueryParam = new CkStatisticsQueryParam();
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DATE, 1);
+        calendar.set(Calendar.AM_PM, 0);
         calendar.set(Calendar.HOUR, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
@@ -173,7 +174,7 @@ public class CKService {
 
         Long countOfYear = 0L;
         for (CkSalesRankingJson ckSalesRankingJson : salesRankingOfYear){
-            countOfMonth += ckSalesRankingJson.getProductCount();
+            countOfYear += ckSalesRankingJson.getProductCount();
         }
 
         CkStatisticsJson ckStatisticsJson = new CkStatisticsJson();
@@ -181,10 +182,46 @@ public class CKService {
         ckStatisticsJson.setSalesMoneyOfYear(salesMoneyOfYear);
         ckStatisticsJson.setSalesRankingOfMonth(salesRankingOfMonth);
         ckStatisticsJson.setSalesRankingOfYear(salesRankingOfYear);
-        ckStatisticsJson.setStarsProductOfMonth(salesRankingOfMonth.get(0));
-        ckStatisticsJson.setStarsProductOfYear(salesRankingOfYear.get(0));
-        ckStatisticsJson.setStarsSalesmanOfMonth(salesMoneyOfMonth.get(0));
-        ckStatisticsJson.setStarsSalesmanOfYear(salesMoneyOfYear.get(0));
+
+        if(salesRankingOfMonth!=null && salesRankingOfMonth.size()>0){
+            ckStatisticsJson.setStarsProductOfMonth(salesRankingOfMonth.get(0));
+        } else {
+            CkSalesRankingJson ckSalesRankingJson = new CkSalesRankingJson();
+            ckSalesRankingJson.setProductCount(0L);
+            ckSalesRankingJson.setProductName("虚位以待");
+            ckStatisticsJson.setStarsProductOfMonth(ckSalesRankingJson);
+        }
+
+        if(salesRankingOfYear!=null && salesRankingOfYear.size()>0) {
+            ckStatisticsJson.setStarsProductOfYear(salesRankingOfYear.get(0));
+        } else {
+            CkSalesRankingJson ckSalesRankingJson = new CkSalesRankingJson();
+            ckSalesRankingJson.setProductCount(0L);
+            ckSalesRankingJson.setProductName("虚位以待");
+            ckStatisticsJson.setStarsProductOfYear(ckSalesRankingJson);
+        }
+
+        if(salesMoneyOfMonth!=null && salesMoneyOfMonth.size()>0) {
+            ckStatisticsJson.setStarsSalesmanOfMonth(salesMoneyOfMonth.get(0));
+        } else {
+            CkSalesMoneyJson ckSalesMoneyJson = new CkSalesMoneyJson();
+            ckSalesMoneyJson.setAmount(new BigDecimal(0.00));
+            ckSalesMoneyJson.setSalesmanCount(0L);
+            ckSalesMoneyJson.setSalesmanName("虚位以待");
+            ckSalesMoneyJson.setSalesmanPhone("");
+            ckStatisticsJson.setStarsSalesmanOfMonth(ckSalesMoneyJson);
+        }
+
+        if(salesMoneyOfYear!=null && salesMoneyOfYear.size()>0) {
+            ckStatisticsJson.setStarsSalesmanOfYear(salesMoneyOfYear.get(0));
+        } else {
+            CkSalesMoneyJson ckSalesMoneyJson = new CkSalesMoneyJson();
+            ckSalesMoneyJson.setAmount(new BigDecimal(0.00));
+            ckSalesMoneyJson.setSalesmanCount(0L);
+            ckSalesMoneyJson.setSalesmanName("虚位以待");
+            ckSalesMoneyJson.setSalesmanPhone("");
+            ckStatisticsJson.setStarsSalesmanOfYear(ckSalesMoneyJson);
+        }
         ckStatisticsJson.setCountOfMonth(countOfMonth);
         ckStatisticsJson.setCountOfYear(countOfYear);
         ckStatisticsJson.setAmountOfMonth(amountOfMonth);
