@@ -27,7 +27,16 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
+	maven { url "http://repo.spring.io/libs-release" }
+	maven { url "http://repo.springsource.org/plugins-release" }
+	jcenter()
 	mavenCentral()
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.boot:spring-boot-starter-parent:${springBootVersion}"
+	}
 }
 
 
@@ -44,7 +53,7 @@ dependencies {
 	//去掉HTML5的强制格式验证
 	compile 'net.sourceforge.nekohtml:nekohtml'
 	//mysql分页支持
-	compile "com.github.pagehelper:pagehelper-spring-boot-starter:1.1.2"
+	compile "com.github.pagehelper:pagehelper-spring-boot-starter:1.2.3"
 	//alibaba fastJson支持
 	compile  'com.alibaba:fastjson:1.2.49'
 	//common-lang3 支持

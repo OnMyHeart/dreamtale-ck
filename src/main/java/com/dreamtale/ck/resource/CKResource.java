@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @author  dream
  */
 @RestController
-@RequestMapping("/admin/ck")
 public class CKResource {
 
     @Autowired

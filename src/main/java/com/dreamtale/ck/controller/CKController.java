@@ -16,7 +16,7 @@ public class CKController {
     @Autowired
     CKService ckService;
 
-    @RequestMapping("/index")
+    @RequestMapping("/")
     public String index(ModelMap modelMap){
         return "index";
     }
