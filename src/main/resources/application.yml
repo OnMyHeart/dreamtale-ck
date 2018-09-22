@@ -12,8 +12,8 @@ spring:
   datasource:
     username: dev001
     password: Dev.qwe123
-    name: dreamtale_user
-    url: jdbc:mysql://mysql.dreamtale.com:3306/dreamtale_user?useSSL=false&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+    name: dream_ck
+    url: jdbc:mysql://mysql.dreamtale.com:3306/dream_ck?useSSL=false&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
     driver-class-name: com.mysql.cj.jdbc.Driver
   #z增加thymeleaf的支持
   thymeleaf:
