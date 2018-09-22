@@ -12,9 +12,9 @@ import org.springframework.context.annotation.ComponentScan;
 @ServletComponentScan(value = {"com.dreamtale"})
 @MapperScan(value = {"com.dreamtale.ck.mapper"})
 @EnableAutoConfiguration
-public class DreamtaleCkApplication {
+public class DreamCkApp {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DreamtaleCkApplication.class, args);
+		SpringApplication.run(DreamCkApp.class, args);
 	}
 }
