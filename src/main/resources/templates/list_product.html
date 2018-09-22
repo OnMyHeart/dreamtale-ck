@@ -99,30 +99,38 @@
                 },
                 {field:"opt",title:"操作",align: 'center', valign: 'middle',data:"opt",
                     formatter:function (value, row, index) {
-                        return ['<button type="button" class="delProduct btn btn-danger btn-xs" userId="'+row.id+'"><i class="glyphicon glyphicon-trash" aria-hidden="true"></i> 删除</button>'].join("");
+                        return [
+                            '<button type="button" class="editProduct btn btn-danger btn-xs" userId="'+row.id+'"><i class="glyphicon glyphicon-edit" aria-hidden="true"></i> 编辑</button>',
+                            '<button type="button" class="delProduct btn btn-danger btn-xs" userId="'+row.id+'"><i class="glyphicon glyphicon-trash" aria-hidden="true"></i> 删除</button>'
+                        ].join("&nbsp;&nbsp;");
                     },
-                    events: {"click .delProduct":function (e, value, row, index) {
-                        layer.open({
-                            title:"删除前的确认",
-                            content:"确定删除<font color='red'>"+row.name+"</font>（<font color='red'>"+row.id+"</font>）？",
-                            btn:["确定","取消"],
-                            btn1:function (index) {
-                                //开始执行删除操作
-                                var ajaxObj = {url: 'del',param:{"id":row.id},method:"GET",async:false};
-                                commonJS.sendAjaxRequest(ajaxObj, function (value) {
-                                    if(value.data==true){
-                                        layer.alert("删除成功！");
-                                    } else {
-                                        layer.alert("删除<font color='red'>"+row.name+"</font>（<font color='red'>"+row.id+"</font>）失败！");
-                                    }
-                                });
-                                window.location.reload();
-                            },
-                            btn2:function (index) {
-                                layer.close(index);
-                            }
-                        });
-                    }}
+                    events: {
+                        "click .editProduct":function (e, value, row, index) {
+
+                        },
+                        "click .delProduct":function (e, value, row, index) {
+                            layer.open({
+                                title:"删除前的确认",
+                                content:"确定删除<font color='red'>"+row.name+"</font>（<font color='red'>"+row.id+"</font>）？",
+                                btn:["确定","取消"],
+                                btn1:function (index) {
+                                    //开始执行删除操作
+                                    var ajaxObj = {url: 'del',param:{"id":row.id},method:"GET",async:false};
+                                    commonJS.sendAjaxRequest(ajaxObj, function (value) {
+                                        if(value.data==true){
+                                            layer.alert("删除成功！");
+                                        } else {
+                                            layer.alert("删除<font color='red'>"+row.name+"</font>（<font color='red'>"+row.id+"</font>）失败！");
+                                        }
+                                    });
+                                    window.location.reload();
+                                },
+                                btn2:function (index) {
+                                    layer.close(index);
+                                }
+                            });
+                        }
+                    }
                 }
             ]
         });
@@ -190,7 +198,7 @@
             <div class="ibox-content">
                 <form method="get" class="form-horizontal">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">条形码</label>
+                        <label class="col-sm-2 control-label">部门</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="no" name="no"  maxlength="16" placeholder="条形码是非必填项，最多16个字">
                         </div>
