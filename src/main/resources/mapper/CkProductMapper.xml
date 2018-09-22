@@ -9,9 +9,10 @@
     <result column="specification" property="specification" jdbcType="VARCHAR" />
     <result column="price" property="price" jdbcType="DECIMAL" />
     <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="product_type" property="productType" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, no, name, unit, specification, price, status
+    id, no, name, unit, specification, price, status, product_type
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -25,9 +26,9 @@
   </delete>
   <insert id="insert" parameterType="com.dreamtale.ck.entity.pojo.CkProduct" >
     insert into ck_product (id, no, name, 
-      unit, specification, price, status)
+      unit, specification, price, status, product_type)
     values (#{id,jdbcType=BIGINT}, #{no,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{unit,jdbcType=VARCHAR}, #{specification,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL},1)
+      #{unit,jdbcType=VARCHAR}, #{specification,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL},1, #{productType, jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.dreamtale.ck.entity.pojo.CkProduct" >
     insert into ck_product
@@ -53,6 +54,9 @@
       <if test="status != null" >
         status,
       </if>
+      <if test="productType != null" >
+        product_type,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -75,6 +79,9 @@
       </if>
       <if test="status != null" >
         #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="productType != null" >
+        #{productType,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -99,6 +106,9 @@
       <if test="status != null" >
         status = #{status,jdbcType=SMALLINT},
       </if>
+      <if test="productType != null" >
+        #{productType,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -109,14 +119,24 @@
       unit = #{unit,jdbcType=VARCHAR},
       specification = #{specification,jdbcType=VARCHAR},
       price = #{price,jdbcType=DECIMAL},
-      status = #{status,jdbcType=SMALLINT}
+      status = #{status,jdbcType=SMALLINT},
+      product_type = #{productType,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="queryProductList" resultMap="BaseResultMap" parameterType="com.dreamtale.ck.entity.param.CkProductListQueryParam">
+  <select id="queryProductList" resultType="com.dreamtale.ck.entity.json.CkProductJson" parameterType="com.dreamtale.ck.entity.param.CkProductListQueryParam">
     SELECT
-    <include refid="Base_Column_List" />
-    FROM ck_product
-    WHERE status = 1
+    cp.id AS id,
+    cp.`no` AS `no`,
+    cp.name AS name,
+    cp.unit AS unit,
+    cp.specification AS specification,
+    cp.price AS price,
+    cp.status AS status,
+    cp.product_type AS productType,
+    cpt.name AS productTypeName
+    FROM ck_product cp
+    LEFT OUTER JOIN ck_product_type cpt ON cpt.code=cp.product_type
+    WHERE cp.status = 1
     ORDER BY id DESC
   </select>
 </mapper>

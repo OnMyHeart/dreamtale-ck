@@ -62,8 +62,8 @@ public class CKService {
         return optNum>0;
     }
 
-    public PageInfo<CkProduct> queryProductList(CkProductListQueryParam ckProductListQueryParam) {
-        PageInfo<CkProduct> pageInfo = PageHelper.offsetPage(
+    public PageInfo<CkProductJson> queryProductList(CkProductListQueryParam ckProductListQueryParam) {
+        PageInfo<CkProductJson> pageInfo = PageHelper.offsetPage(
                 ckProductListQueryParam.getOffset(),
                 ckProductListQueryParam.getLimit()
         ).doSelectPageInfo(()->ckProductMapper.queryProductList(ckProductListQueryParam));

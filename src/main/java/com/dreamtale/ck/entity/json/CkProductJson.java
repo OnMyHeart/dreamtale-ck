@@ -1,8 +1,8 @@
-package com.dreamtale.ck.entity.pojo;
+package com.dreamtale.ck.entity.json;
 
 import java.math.BigDecimal;
 
-public class CkProduct {
+public class CkProductJson {
 
     private Long id;
 
@@ -20,6 +20,8 @@ public class CkProduct {
 
     private String productType;
 
+    private String productTypeName;
+
     public Long getId() {
         return id;
     }
@@ -33,7 +35,7 @@ public class CkProduct {
     }
 
     public void setNo(String no) {
-        this.no = no == null ? null : no.trim();
+        this.no = no;
     }
 
     public String getName() {
@@ -41,7 +43,7 @@ public class CkProduct {
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public String getUnit() {
@@ -49,7 +51,7 @@ public class CkProduct {
     }
 
     public void setUnit(String unit) {
-        this.unit = unit == null ? null : unit.trim();
+        this.unit = unit;
     }
 
     public String getSpecification() {
@@ -57,7 +59,7 @@ public class CkProduct {
     }
 
     public void setSpecification(String specification) {
-        this.specification = specification == null ? null : specification.trim();
+        this.specification = specification;
     }
 
     public BigDecimal getPrice() {
@@ -82,5 +84,13 @@ public class CkProduct {
 
     public void setProductType(String productType) {
         this.productType = productType;
+    }
+
+    public String getProductTypeName() {
+        return productTypeName;
+    }
+
+    public void setProductTypeName(String productTypeName) {
+        this.productTypeName = productTypeName;
     }
 }

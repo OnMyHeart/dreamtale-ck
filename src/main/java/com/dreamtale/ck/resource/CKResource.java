@@ -2,6 +2,7 @@ package com.dreamtale.ck.resource;
 
 import com.dreamtale.ck.common.ResultJson;
 import com.dreamtale.ck.entity.json.CkOrderListJson;
+import com.dreamtale.ck.entity.json.CkProductJson;
 import com.dreamtale.ck.entity.json.CkStatisticsJson;
 import com.dreamtale.ck.entity.json.CkUserListJson;
 import com.dreamtale.ck.entity.param.*;
@@ -53,9 +54,9 @@ public class CKResource {
     }
 
     @GetMapping("/product/queryProductList")
-    public PageResult<CkProduct> queryProductList(CkProductListQueryParam ckProductListQueryParam) {
-        PageInfo<CkProduct> pageInfo = ckService.queryProductList(ckProductListQueryParam);
-        PageResult<CkProduct> pageResult = new PageResult<>();
+    public PageResult<CkProductJson> queryProductList(CkProductListQueryParam ckProductListQueryParam) {
+        PageInfo<CkProductJson> pageInfo = ckService.queryProductList(ckProductListQueryParam);
+        PageResult<CkProductJson> pageResult = new PageResult<>();
         if(pageInfo!=null){
             pageResult.setPage(new Long(pageInfo.getPages()));
             pageResult.setTotal(pageInfo.getTotal());

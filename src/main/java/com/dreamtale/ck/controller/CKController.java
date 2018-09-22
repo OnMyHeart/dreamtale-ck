@@ -44,9 +44,14 @@ public class CKController {
 
     @RequestMapping("/desktop.html")
     public String desktop(ModelMap modelMap){
-        //统计信息
+        //排行榜
         modelMap.put("statisticsInfo",ckService.queryStatisticsInfo());
         return "desktop";
+    }
+
+    @RequestMapping("/statistics.html")
+    public String statisticsInfo(){
+        return "statistics_info";
     }
 
 }
