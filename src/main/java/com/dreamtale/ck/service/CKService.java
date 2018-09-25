@@ -1,6 +1,7 @@
 package com.dreamtale.ck.service;
 
 import com.alibaba.fastjson.JSONArray;
+import com.dreamtale.ck.constant.common.PageResult;
 import com.dreamtale.ck.entity.json.*;
 import com.dreamtale.ck.entity.param.*;
 import com.dreamtale.ck.entity.pojo.CkDistrict;
@@ -144,8 +145,12 @@ public class CKService {
         Date endDate = calendar.getTime();
         ckStatisticsQueryParam.setStartDate(startDate);
         ckStatisticsQueryParam.setEndDate(endDate);
+        ckStatisticsQueryParam.setProductType("PT01");
         List<CkSalesMoneyJson> salesMoneyOfMonth = ckOrderMapper.salesMoneyByDate(ckStatisticsQueryParam);
         List<CkSalesRankingJson> salesRankingOfMonth = ckOrderMapper.salesRankingByDate(ckStatisticsQueryParam);
+        ckStatisticsQueryParam.setProductType("PT02");
+        List<CkSalesMoneyJson> salesMoneyOfMonth2 = ckOrderMapper.salesMoneyByDate(ckStatisticsQueryParam);
+        List<CkSalesRankingJson> salesRankingOfMonth2 = ckOrderMapper.salesRankingByDate(ckStatisticsQueryParam);
         //查年度
         calendar.set(Calendar.MONTH, 0);
         startDate = calendar.getTime();
@@ -153,8 +158,12 @@ public class CKService {
         endDate = calendar.getTime();
         ckStatisticsQueryParam.setStartDate(startDate);
         ckStatisticsQueryParam.setEndDate(endDate);
+        ckStatisticsQueryParam.setProductType("PT01");
         List<CkSalesMoneyJson> salesMoneyOfYear = ckOrderMapper.salesMoneyByDate(ckStatisticsQueryParam);
         List<CkSalesRankingJson> salesRankingOfYear = ckOrderMapper.salesRankingByDate(ckStatisticsQueryParam);
+        ckStatisticsQueryParam.setProductType("PT02");
+        List<CkSalesMoneyJson> salesMoneyOfYear2 = ckOrderMapper.salesMoneyByDate(ckStatisticsQueryParam);
+        List<CkSalesRankingJson> salesRankingOfYear2 = ckOrderMapper.salesRankingByDate(ckStatisticsQueryParam);
 
         //计算销售总额和销售总量
         BigDecimal amountOfMonth = new BigDecimal(0.00);
@@ -162,9 +171,19 @@ public class CKService {
             amountOfMonth = amountOfMonth.add(ckSalesMoneyJson.getAmount());
         }
 
+        BigDecimal amountOfMonth2 = new BigDecimal(0.00);
+        for (CkSalesMoneyJson ckSalesMoneyJson : salesMoneyOfMonth2){
+            amountOfMonth2 = amountOfMonth.add(ckSalesMoneyJson.getAmount());
+        }
+
         BigDecimal amountOfYear = new BigDecimal(0.00);
         for (CkSalesMoneyJson ckSalesMoneyJson : salesMoneyOfYear){
             amountOfYear = amountOfYear.add(ckSalesMoneyJson.getAmount());
+        }
+
+        BigDecimal amountOfYear2 = new BigDecimal(0.00);
+        for (CkSalesMoneyJson ckSalesMoneyJson : salesMoneyOfYear2){
+            amountOfYear2 = amountOfYear.add(ckSalesMoneyJson.getAmount());
         }
 
         Long countOfMonth = 0L;
@@ -172,9 +191,19 @@ public class CKService {
             countOfMonth += ckSalesRankingJson.getProductCount();
         }
 
+        Long countOfMonth2 = 0L;
+        for (CkSalesRankingJson ckSalesRankingJson : salesRankingOfMonth2){
+            countOfMonth2 += ckSalesRankingJson.getProductCount();
+        }
+
         Long countOfYear = 0L;
         for (CkSalesRankingJson ckSalesRankingJson : salesRankingOfYear){
             countOfYear += ckSalesRankingJson.getProductCount();
+        }
+
+        Long countOfYear2 = 0L;
+        for (CkSalesRankingJson ckSalesRankingJson : salesRankingOfYear2){
+            countOfYear2 += ckSalesRankingJson.getProductCount();
         }
 
         CkStatisticsJson ckStatisticsJson = new CkStatisticsJson();
@@ -227,6 +256,10 @@ public class CKService {
         ckStatisticsJson.setAmountOfMonth(amountOfMonth);
         ckStatisticsJson.setAmountOfYear(amountOfYear);
         return ckStatisticsJson;
+    }
+
+    public PageResult queryStatistics(CkStatisticsInfoQueryParam ckStatisticsInfoQueryParam){
+        return null;
     }
 
 }

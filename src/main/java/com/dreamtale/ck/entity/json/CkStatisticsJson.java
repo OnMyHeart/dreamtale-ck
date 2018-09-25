@@ -28,6 +28,23 @@ public class CkStatisticsJson implements Serializable {
     private List<CkSalesRankingJson> salesRankingOfMonth;
 
     /**
+     * 年度业务员销售额排行榜
+     */
+    private List<CkSalesMoneyJson> salesMoneyOfYear2;
+    /**
+     * 月度业务员销售额排行榜
+     */
+    private List<CkSalesMoneyJson> salesMoneyOfMonth2;
+    /**
+     * 年度产品销量排行榜
+     */
+    private List<CkSalesRankingJson> salesRankingOfYear2;
+    /**
+     * 月度产品销量排行榜
+     */
+    private List<CkSalesRankingJson> salesRankingOfMonth2;
+
+    /**
      * 月度明星产品
      */
     private CkSalesRankingJson starsProductOfMonth;
@@ -162,5 +179,37 @@ public class CkStatisticsJson implements Serializable {
 
     public void setCountOfYear(Long countOfYear) {
         this.countOfYear = countOfYear;
+    }
+
+    public List<CkSalesMoneyJson> getSalesMoneyOfYear2() {
+        return salesMoneyOfYear2;
+    }
+
+    public void setSalesMoneyOfYear2(List<CkSalesMoneyJson> salesMoneyOfYear2) {
+        this.salesMoneyOfYear2 = salesMoneyOfYear2;
+    }
+
+    public List<CkSalesMoneyJson> getSalesMoneyOfMonth2() {
+        return salesMoneyOfMonth2;
+    }
+
+    public void setSalesMoneyOfMonth2(List<CkSalesMoneyJson> salesMoneyOfMonth2) {
+        this.salesMoneyOfMonth2 = salesMoneyOfMonth2;
+    }
+
+    public List<CkSalesRankingJson> getSalesRankingOfYear2() {
+        return salesRankingOfYear2;
+    }
+
+    public void setSalesRankingOfYear2(List<CkSalesRankingJson> salesRankingOfYear2) {
+        this.salesRankingOfYear2 = salesRankingOfYear2;
+    }
+
+    public List<CkSalesRankingJson> getSalesRankingOfMonth2() {
+        return salesRankingOfMonth2;
+    }
+
+    public void setSalesRankingOfMonth2(List<CkSalesRankingJson> salesRankingOfMonth2) {
+        this.salesRankingOfMonth2 = salesRankingOfMonth2;
     }
 }

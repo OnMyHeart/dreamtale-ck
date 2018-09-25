@@ -76,7 +76,7 @@
         <div class="col-sm-3">
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
-                    <h4>月度销售额排行榜</h4>
+                    <h4>一部月度销售额排行榜</h4>
                     <ul class="todo-list m-t small-list">
                         <ul class="todo-list m-t small-list" th:each="ck, ckStat : ${statisticsInfo.salesMoneyOfMonth}">
                             <li>
@@ -92,7 +92,7 @@
         <div class="col-sm-3">
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
-                    <h4>月度产品销量排行榜</h4>
+                    <h4>一部月度产品销量排行榜</h4>
                     <ul class="todo-list m-t small-list" th:each="ck, ckStat : ${statisticsInfo.salesRankingOfMonth}">
                         <li>
                             <span th:text="${ckStat.count}">1 </span>
@@ -106,7 +106,39 @@
         <div class="col-sm-3">
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
-                    <h4>年度销售额排行榜</h4>
+                    <h4>二部月度销售额排行榜</h4>
+                    <ul class="todo-list m-t small-list">
+                        <ul class="todo-list m-t small-list" th:each="ck, ckStat : ${statisticsInfo.salesMoneyOfMonth2}">
+                            <li>
+                                <span th:text="${ckStat.count}">1 </span>
+                                <span class="m-l-xs" th:text="${ck.salesmanName}">虚位以待</span>
+                                <small class="label label-primary"><i class="glyphicon glyphicon-yen"></i> <span th:text="${ck.amount}">0.00</span></small>
+                            </li>
+                        </ul>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <h4>二部月度产品销量排行榜</h4>
+                    <ul class="todo-list m-t small-list" th:each="ck, ckStat : ${statisticsInfo.salesRankingOfMonth2}">
+                        <li>
+                            <span th:text="${ckStat.count}">1 </span>
+                            <span class="m-l-xs" th:text="${ck.productName}">虚位以待</span>
+                            <small class="label label-primary"><i class="glyphicon glyphicon-signal"></i> <span th:text="${ck.productCount}">0.00</span></small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <h4>一部年度销售额排行榜</h4>
                     <ul class="todo-list m-t small-list" th:each="ck, ckStat : ${statisticsInfo.salesMoneyOfYear}">
                         <li>
                             <span th:text="${ckStat.count}">1 </span>
@@ -120,8 +152,36 @@
         <div class="col-sm-3">
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
-                    <h4>年度产品销量排行榜</h4>
+                    <h4>一部年度产品销量排行榜</h4>
                     <ul class="todo-list m-t small-list" th:each="ck, ckStat : ${statisticsInfo.salesRankingOfYear}">
+                        <li>
+                            <span th:text="${ckStat.count}">1 </span>
+                            <span class="m-l-xs" th:text="${ck.productName}">虚位以待</span>
+                            <small class="label label-primary"><i class="glyphicon glyphicon-signal"></i> <span th:text="${ck.productCount}">0.00</span></small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <h4>二部年度销售额排行榜</h4>
+                    <ul class="todo-list m-t small-list" th:each="ck, ckStat : ${statisticsInfo.salesMoneyOfYear2}">
+                        <li>
+                            <span th:text="${ckStat.count}">1 </span>
+                            <span class="m-l-xs" th:text="${ck.salesmanName}">虚位以待</span>
+                            <small class="label label-primary"><i class="glyphicon glyphicon-yen"></i> <span th:text="${ck.amount}">0.00</span></small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <h4>二部年度产品销量排行榜</h4>
+                    <ul class="todo-list m-t small-list" th:each="ck, ckStat : ${statisticsInfo.salesRankingOfYear2}">
                         <li>
                             <span th:text="${ckStat.count}">1 </span>
                             <span class="m-l-xs" th:text="${ck.productName}">虚位以待</span>

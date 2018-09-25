@@ -1,7 +1,7 @@
 package com.dreamtale.ck.entity.param;
 
 
-import com.dreamtale.ck.common.BaseParam;
+import com.dreamtale.ck.constant.common.BaseParam;
 
 public class CkOrderListQueryParam extends BaseParam {
 

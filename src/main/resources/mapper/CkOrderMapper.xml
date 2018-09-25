@@ -185,8 +185,12 @@
       ca.count AS salesmanCount
     FROM
       ( SELECT ck.salesman_no, SUM( ck.amount ) AS amount, SUM( ck.count ) AS count FROM ck_order ck
+      LEFT OUTER JOIN ck_product cp ON cp.id = ck.product_id
       <where>
         ck.status = 1
+        <if test="productType!=null">
+          AND  cp.product_type = #{productType,jdbcType=VARCHAR}
+        </if>
         <if test="startDate!=null">
           AND ck.create_time <![CDATA[ >= ]]> #{startDate,jdbcType=TIMESTAMP}
         </if>
@@ -208,8 +212,12 @@
       cc.count AS productCount
     FROM
       ( SELECT co.product_id, SUM( co.count ) AS count FROM ck_order co
+    LEFT OUTER JOIN ck_product cp ON cp.id = co.product_id
       <where>
         co.status = 1
+        <if test="productType!=null">
+          AND  cp.product_type = #{productType,jdbcType=VARCHAR}
+        </if>
         <if test="startDate!=null">
           AND co.create_time <![CDATA[ >= ]]> #{startDate,jdbcType=TIMESTAMP}
         </if>

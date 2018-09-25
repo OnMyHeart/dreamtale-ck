@@ -1,4 +1,4 @@
-package com.dreamtale.ck.common;
+package com.dreamtale.ck.constant.common;
 
 import java.io.Serializable;
 

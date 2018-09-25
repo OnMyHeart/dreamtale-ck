@@ -1,4 +1,4 @@
-package com.dreamtale.ck.common;
+package com.dreamtale.ck.constant.common;
 
 public class ResultJson<T> {
 

@@ -1,6 +1,6 @@
 package com.dreamtale.ck.resource;
 
-import com.dreamtale.ck.common.ResultJson;
+import com.dreamtale.ck.constant.common.ResultJson;
 import com.dreamtale.ck.entity.json.CkOrderListJson;
 import com.dreamtale.ck.entity.json.CkProductJson;
 import com.dreamtale.ck.entity.json.CkStatisticsJson;
@@ -8,7 +8,7 @@ import com.dreamtale.ck.entity.json.CkUserListJson;
 import com.dreamtale.ck.entity.param.*;
 import com.dreamtale.ck.entity.pojo.CkDistrict;
 import com.dreamtale.ck.entity.pojo.CkProduct;
-import com.dreamtale.ck.common.PageResult;
+import com.dreamtale.ck.constant.common.PageResult;
 import com.dreamtale.ck.service.CKService;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -55,6 +55,20 @@ public class CKResource {
 
     @GetMapping("/product/queryProductList")
     public PageResult<CkProductJson> queryProductList(CkProductListQueryParam ckProductListQueryParam) {
+        PageInfo<CkProductJson> pageInfo = ckService.queryProductList(ckProductListQueryParam);
+        PageResult<CkProductJson> pageResult = new PageResult<>();
+        if(pageInfo!=null){
+            pageResult.setPage(new Long(pageInfo.getPages()));
+            pageResult.setTotal(pageInfo.getTotal());
+            pageResult.setRows(pageInfo.getList());
+        }
+        return pageResult;
+    }
+
+    @GetMapping("/product/queryAllProduct")
+    public PageResult<CkProductJson> queryAllProduct(CkProductListQueryParam ckProductListQueryParam) {
+        ckProductListQueryParam.setOffset(1);
+        ckProductListQueryParam.setLimit(100);
         PageInfo<CkProductJson> pageInfo = ckService.queryProductList(ckProductListQueryParam);
         PageResult<CkProductJson> pageResult = new PageResult<>();
         if(pageInfo!=null){
@@ -198,6 +212,9 @@ public class CKResource {
         return resultJson;
     }
 
-
+    @PostMapping("/queryStatistics")
+    public PageResult queryStatistics(CkStatisticsInfoQueryParam ckStatisticsInfoQueryParam){
+        return ckService.queryStatistics(ckStatisticsInfoQueryParam);
+    }
 
 }
