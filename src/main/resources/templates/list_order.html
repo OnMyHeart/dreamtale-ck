@@ -59,6 +59,7 @@
 <script src="//dream.picp.vip/static/admin/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js?v=1.0.0"></script>
 <!-- layer 弹框 -->
 <script src="//dream.picp.vip/static/layer/dist/layer.js?v=1.0.0"></script>
+<script src="//dream.picp.vip/static/admin/js/plugins/layer/laydate/laydate.js"></script>
 <!-- Peity -->
 <script>
     $(function() {
@@ -292,6 +293,11 @@
                         layer.msg("请选择业务员！");
                         return;
                     }
+                    var createTime = $("#createTime").val();
+                    if(createTime==null || createTime=="" || createTime==undefined){
+                        layer.msg("请选择出单日期！");
+                        return;
+                    }
                     var saveOrderItems = $('#productList').bootstrapTable('getSelections');
                     if(saveOrderItems.length<1){
                         layer.msg("您未选择任何产品！");
@@ -303,6 +309,7 @@
                         saveOrderItems.forEach(function (obj) {
                             var order = new Object();
                             order["productId"] = obj.id;
+                            order["createTime"] = createTime;
 
                             var count= $("#count_"+obj.id).val();
                             if(count==null || count=="" || count==undefined || parseInt(count)<1){
@@ -362,9 +369,25 @@
                 <div class="example-wrap">
                     <div class="example">
                         <div class="btn-group hidden-xs" id="productListToolBars" role="group">
-                            <select class="form-control m-b" id="userId" name="userId">
-                                <option value="">请选择业务员</option>
-                            </select>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" id="userId" name="userId">
+                                        <option value="">请选择业务员</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <input id="createTime" class="laydate-icon form-control layer-date" placeholder="请选择出单日期">
+                                </div>
+                                <script>
+                                    //外部js调用
+                                    laydate({
+                                        elem: '#createTime', //目标元素。由于laydate.js封装了一个轻量级的选择器引擎，因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
+                                        event: 'focus' //响应事件。如果没有传入event，则按照默认的click
+                                    });
+                                </script>
+                            </div>
                         </div>
                         <table id="productList" data-mobile-responsive="true">
                             <thead>

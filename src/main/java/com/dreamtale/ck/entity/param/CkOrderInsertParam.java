@@ -1,6 +1,7 @@
 package com.dreamtale.ck.entity.param;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * 下单参数
@@ -21,6 +22,8 @@ public class CkOrderInsertParam {
     private String lowNo;
 
     private String batchNo;
+
+    private Date createTime;
 
     public Long getProductId() {
         return productId;
@@ -76,5 +79,13 @@ public class CkOrderInsertParam {
 
     public void setBatchNo(String batchNo) {
         this.batchNo = batchNo;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }
