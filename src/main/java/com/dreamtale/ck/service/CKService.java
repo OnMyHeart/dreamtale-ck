@@ -255,6 +255,10 @@ public class CKService {
         ckStatisticsJson.setCountOfYear(countOfYear);
         ckStatisticsJson.setAmountOfMonth(amountOfMonth);
         ckStatisticsJson.setAmountOfYear(amountOfYear);
+        ckStatisticsJson.setSalesMoneyOfMonth2(salesMoneyOfMonth2);
+        ckStatisticsJson.setSalesMoneyOfYear2(salesMoneyOfYear2);
+        ckStatisticsJson.setSalesRankingOfMonth2(salesRankingOfMonth2);
+        ckStatisticsJson.setSalesRankingOfYear2(salesRankingOfYear2);
         return ckStatisticsJson;
     }
 
