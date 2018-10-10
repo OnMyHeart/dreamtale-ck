@@ -13,7 +13,7 @@ spring:
     username: dev001
     password: Dev.qwe123
     name: ck_test
-    url: jdbc:mysql://mysql.dreamtale.com:3306/ck_test?useSSL=false&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+    url: jdbc:mysql://mysql.dreamtale.com:3306/ck_online?useSSL=false&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=GMT%2B8
     driver-class-name: com.mysql.cj.jdbc.Driver
   #z增加thymeleaf的支持
   thymeleaf:
@@ -26,7 +26,7 @@ spring:
       content-type: text/html
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT-5
+    time-zone: GMT+8
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
