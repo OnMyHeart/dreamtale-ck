@@ -171,9 +171,8 @@ public class CKService {
             amountOfMonth = amountOfMonth.add(ckSalesMoneyJson.getAmount());
         }
 
-        BigDecimal amountOfMonth2 = new BigDecimal(0.00);
         for (CkSalesMoneyJson ckSalesMoneyJson : salesMoneyOfMonth2){
-            amountOfMonth2 = amountOfMonth.add(ckSalesMoneyJson.getAmount());
+            amountOfMonth = amountOfMonth.add(ckSalesMoneyJson.getAmount());
         }
 
         BigDecimal amountOfYear = new BigDecimal(0.00);
@@ -181,9 +180,8 @@ public class CKService {
             amountOfYear = amountOfYear.add(ckSalesMoneyJson.getAmount());
         }
 
-        BigDecimal amountOfYear2 = new BigDecimal(0.00);
         for (CkSalesMoneyJson ckSalesMoneyJson : salesMoneyOfYear2){
-            amountOfYear2 = amountOfYear.add(ckSalesMoneyJson.getAmount());
+            amountOfYear = amountOfYear.add(ckSalesMoneyJson.getAmount());
         }
 
         Long countOfMonth = 0L;
@@ -191,9 +189,8 @@ public class CKService {
             countOfMonth += ckSalesRankingJson.getProductCount();
         }
 
-        Long countOfMonth2 = 0L;
         for (CkSalesRankingJson ckSalesRankingJson : salesRankingOfMonth2){
-            countOfMonth2 += ckSalesRankingJson.getProductCount();
+            countOfMonth += ckSalesRankingJson.getProductCount();
         }
 
         Long countOfYear = 0L;
@@ -201,9 +198,8 @@ public class CKService {
             countOfYear += ckSalesRankingJson.getProductCount();
         }
 
-        Long countOfYear2 = 0L;
         for (CkSalesRankingJson ckSalesRankingJson : salesRankingOfYear2){
-            countOfYear2 += ckSalesRankingJson.getProductCount();
+            countOfYear += ckSalesRankingJson.getProductCount();
         }
 
         CkStatisticsJson ckStatisticsJson = new CkStatisticsJson();
