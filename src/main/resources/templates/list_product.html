@@ -154,11 +154,6 @@
                         layer.msg("单位不能为空！");
                         return;
                     }
-                    var specification = $("#specification").val();
-                    if(specification==null || specification=="" || specification==undefined){
-                        layer.msg("规格不能为空！");
-                        return;
-                    }
                     var price = $("#price").val();
                     if(price==null || price=="" || price==undefined){
                         layer.msg("价格不能为空！");
@@ -200,7 +195,10 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">部门</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="no" name="no"  maxlength="16" placeholder="条形码是非必填项，最多16个字">
+                            <select class="form-control m-b" name="productType">
+                                <option value="PT01">一部</option>
+                                <option value="PT02">二部</option>
+                            </select>
                         </div>
                     </div>
                     <div class="hr-line-dashed"></div>

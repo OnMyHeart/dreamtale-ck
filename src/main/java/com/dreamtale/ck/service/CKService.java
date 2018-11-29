@@ -15,6 +15,7 @@ import com.dreamtale.ck.mapper.CkUserMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -27,6 +28,7 @@ import java.util.List;
  * @author  dream
  */
 @Service
+@Repository
 public class CKService {
 
     @Autowired

@@ -54,4 +54,9 @@ public class CKController {
         return "statistics_info";
     }
 
+    @RequestMapping("/year.html")
+    public String statisticsYear(){
+        return "statistics_year";
+    }
+
 }

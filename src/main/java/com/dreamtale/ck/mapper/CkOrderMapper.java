@@ -7,10 +7,14 @@ import com.dreamtale.ck.entity.param.CkOrderInsertParam;
 import com.dreamtale.ck.entity.param.CkOrderListQueryParam;
 import com.dreamtale.ck.entity.param.CkStatisticsQueryParam;
 import com.dreamtale.ck.entity.pojo.CkOrder;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Mapper
+@Repository
 public interface CkOrderMapper {
 
     int deleteByPrimaryKey(Long id);
