@@ -1,6 +1,7 @@
 package com.dreamtale.ck.service;
 
 import com.alibaba.fastjson.JSONArray;
+import com.dreamtale.ck.constant.common.BaseParam;
 import com.dreamtale.ck.constant.common.PageResult;
 import com.dreamtale.ck.entity.json.*;
 import com.dreamtale.ck.entity.param.*;
@@ -262,6 +263,22 @@ public class CKService {
 
     public PageResult queryStatistics(CkStatisticsInfoQueryParam ckStatisticsInfoQueryParam){
         return null;
+    }
+
+    public PageInfo<CkStatisticsEachMonthJson> statisticsEachMonthAmount(BaseParam baseParam) {
+        PageInfo<CkStatisticsEachMonthJson> pageInfo = PageHelper.offsetPage(
+                baseParam.getOffset(),
+                baseParam.getLimit()
+        ).doSelectPageInfo(()->ckOrderMapper.statisticsEachMonthAmount());
+        return pageInfo;
+    }
+
+    public PageInfo<CkStatisticsEachMonthCountJson> statisticsEachMonthCount(BaseParam baseParam) {
+        PageInfo<CkStatisticsEachMonthCountJson> pageInfo = PageHelper.offsetPage(
+                baseParam.getOffset(),
+                baseParam.getLimit()
+        ).doSelectPageInfo(()->ckOrderMapper.statisticsEachMonthCount());
+        return pageInfo;
     }
 
 }

@@ -54,9 +54,9 @@ public class CKController {
         return "statistics_info";
     }
 
-    @RequestMapping("/year.html")
-    public String statisticsYear(){
-        return "statistics_year";
+    @RequestMapping("/statisticsEachMonth.html")
+    public String statisticsAmountEachMonth(){
+        return "statistics_each_month";
     }
 
 }

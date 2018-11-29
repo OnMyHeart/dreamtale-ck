@@ -1,8 +1,6 @@
 package com.dreamtale.ck.mapper;
 
-import com.dreamtale.ck.entity.json.CkOrderListJson;
-import com.dreamtale.ck.entity.json.CkSalesMoneyJson;
-import com.dreamtale.ck.entity.json.CkSalesRankingJson;
+import com.dreamtale.ck.entity.json.*;
 import com.dreamtale.ck.entity.param.CkOrderInsertParam;
 import com.dreamtale.ck.entity.param.CkOrderListQueryParam;
 import com.dreamtale.ck.entity.param.CkStatisticsQueryParam;
@@ -56,4 +54,17 @@ public interface CkOrderMapper {
      * @return
      */
     List<CkSalesRankingJson> salesRankingByDate(CkStatisticsQueryParam ckStatisticsQueryParam);
+
+    /**
+     * 统计每月的销量和销售额
+     * @return
+     */
+    List<CkStatisticsEachMonthJson> statisticsEachMonthAmount();
+
+    /**
+     * 统计每月的总销量
+     * @return
+     */
+    List<CkStatisticsEachMonthCountJson> statisticsEachMonthCount();
+
 }

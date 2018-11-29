@@ -20,7 +20,7 @@
     <!-- Panel Other -->
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>年度总计列表</h5>
+            <h5>历史月度销售额</h5>
         </div>
         <div class="ibox-content">
             <div class="row row-lg">
@@ -59,7 +59,7 @@
 <script>
     $(function() {
         $('#exampleTableEvents').bootstrapTable({
-            url: "querySaleListByYear",
+            url: "statisticsEachMonthCount",
             search: false,
             striped: true,
             pagination: true,
@@ -78,18 +78,7 @@
             sidePagination: "server",
             columns: [
                 {field:"id",title:"订单编号",align: 'center', valign: 'middle',data:"id"},
-                // {field:"productNo",title:"产品条形码",align: 'center', valign: 'middle',data:"productNo"},
-                {field:"productName",title:"品名",align: 'center', valign: 'middle',data:"productName"},
-                {field:"unit",title:"单位",align: 'center', valign: 'middle',data:"unit"},
-                {field:"specification",title:"规格",align: 'center', valign: 'middle',data:"specification"},
-                {field:"batchNo",title:"批次号",align: 'center', valign: 'middle',data:"batchNo"},
-                {field:"lowNo",title:"小号",align: 'center', valign: 'middle',data:"lowNo"},
-                {field:"price",title:"业务员价",align: 'center', valign: 'middle',data:"price",
-                    formatter:function (value, row, index) {
-                        return [row.price.toFixed(2)].join("");
-                    }
-                },
-                {field:"count",title:"数量",align: 'center', valign: 'middle',data:"count"},
+                {field:"count",title:"数量(单位：盒)",align: 'center', valign: 'middle',data:"count"},
                 {field:"amount",title:"金额",align: 'center', valign: 'middle',data:"amount",
                     formatter:function (value, row, index) {
                         return [row.amount.toFixed(2)].join("");

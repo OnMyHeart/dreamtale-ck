@@ -1,10 +1,8 @@
 package com.dreamtale.ck.resource;
 
+import com.dreamtale.ck.constant.common.BaseParam;
 import com.dreamtale.ck.constant.common.ResultJson;
-import com.dreamtale.ck.entity.json.CkOrderListJson;
-import com.dreamtale.ck.entity.json.CkProductJson;
-import com.dreamtale.ck.entity.json.CkStatisticsJson;
-import com.dreamtale.ck.entity.json.CkUserListJson;
+import com.dreamtale.ck.entity.json.*;
 import com.dreamtale.ck.entity.param.*;
 import com.dreamtale.ck.entity.pojo.CkDistrict;
 import com.dreamtale.ck.entity.pojo.CkProduct;
@@ -215,6 +213,30 @@ public class CKResource {
     @PostMapping("/queryStatistics")
     public PageResult queryStatistics(CkStatisticsInfoQueryParam ckStatisticsInfoQueryParam){
         return ckService.queryStatistics(ckStatisticsInfoQueryParam);
+    }
+
+    @GetMapping("/statisticsEachMonthAmount")
+    PageResult<CkStatisticsEachMonthJson> statisticsEachMonthAmount(BaseParam baseParam){
+        PageInfo<CkStatisticsEachMonthJson> pageInfo = ckService.statisticsEachMonthAmount(baseParam);
+        PageResult<CkStatisticsEachMonthJson> pageResult = new PageResult<>();
+        if(pageInfo!=null){
+            pageResult.setPage(new Long(pageInfo.getPages()));
+            pageResult.setTotal(pageInfo.getTotal());
+            pageResult.setRows(pageInfo.getList());
+        }
+        return pageResult;
+    }
+
+    @GetMapping("/statisticsEachMonthCount")
+    PageResult<CkStatisticsEachMonthCountJson> statisticsEachMonthCount(BaseParam baseParam){
+        PageInfo<CkStatisticsEachMonthCountJson> pageInfo = ckService.statisticsEachMonthCount(baseParam);
+        PageResult<CkStatisticsEachMonthCountJson> pageResult = new PageResult<>();
+        if(pageInfo!=null){
+            pageResult.setPage(new Long(pageInfo.getPages()));
+            pageResult.setTotal(pageInfo.getTotal());
+            pageResult.setRows(pageInfo.getList());
+        }
+        return pageResult;
     }
 
 }

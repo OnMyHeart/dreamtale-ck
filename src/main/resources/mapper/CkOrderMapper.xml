@@ -12,6 +12,9 @@
     <result column="amount" property="amount" jdbcType="DECIMAL" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="status" property="status" jdbcType="SMALLINT" />
+    <result column="year" property="year" jdbcType="SMALLINT" />
+    <result column="month" property="month" jdbcType="VARCHAR" />
+    <result column="year_month" property="yearMonth" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, salesman_no, batch_no, low_no, product_id, count, price, amount, create_time, status
@@ -29,20 +32,20 @@
   <insert id="insert" parameterType="com.dreamtale.ck.entity.pojo.CkOrder" >
     insert into ck_order (id, salesman_no, batch_no, low_no, product_id,
       count, price, amount, 
-      create_time, status)
+      create_time, status,`year`,`month`,`year_month`)
     values (#{id,jdbcType=BIGINT}, #{salesmanNo,jdbcType=VARCHAR},#{batchNo,jdbcType=VARCHAR},#{lowNo,jdbcType=VARCHAR}, #{productId,jdbcType=BIGINT},
       #{count,jdbcType=BIGINT}, #{price,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, 
-      now())
+      now(),1,DATE_FORMAT(now(),'%Y'),DATE_FORMAT(now(),'%m'),DATE_FORMAT(now(),'%Y%m'))
   </insert>
 
   <insert id="batchInsert" parameterType="java.util.List" >
     insert into ck_order (id, salesman_no, batch_no, low_no, product_id,
       count, price, amount,
-      create_time, status)
+      create_time, status,`year`,`month`,`year_month`)
     values 
     <foreach collection="orderList" item="order" index="index" separator="," >
       (#{order.id,jdbcType=BIGINT}, #{order.salesmanNo,jdbcType=VARCHAR},#{order.batchNo,jdbcType=VARCHAR},#{order.lowNo,jdbcType=VARCHAR}, #{order.productId,jdbcType=BIGINT},
-      #{order.count,jdbcType=BIGINT}, #{order.price,jdbcType=DECIMAL}, #{order.amount,jdbcType=DECIMAL},#{order.createTime,jdbcType=TIMESTAMP},1)
+      #{order.count,jdbcType=BIGINT}, #{order.price,jdbcType=DECIMAL}, #{order.amount,jdbcType=DECIMAL},#{order.createTime,jdbcType=TIMESTAMP},1,DATE_FORMAT(now(),'%Y'),DATE_FORMAT(now(),'%m'),DATE_FORMAT(now(),'%Y%m'))
     </foreach>
 
   </insert>
@@ -230,4 +233,34 @@
 	  cc.count DESC,
 	  cc.product_id ASC
   </select>
+
+  <!-- 统计每月的销售额和销量 -->
+  <select id="statisticsEachMonthAmount" resultType="com.dreamtale.ck.entity.json.CkStatisticsEachMonthJson">
+      SELECT co.`year_month` as yearMonth,  sum(co.amount) as amount, sum(co.count) as `count` from ck_order co
+      GROUP BY co.`year_month` ORDER BY co.`year_month` desc
+  </select>
+
+  <!-- 统计每月的总销量-->
+  <select id="statisticsEachMonthCount" resultType="com.dreamtale.ck.entity.json.CkStatisticsEachMonthCountJson" >
+      SELECT co.`year_month` as yearMonth,  sum(co.count) as `count` from ck_order co
+      GROUP BY co.`year_month`
+      ORDER BY co.`year_month` desc
+  </select>
+
+  <!--<select id="statisticsMonthAmountDetailByProduct" resultType="" parameterType="">-->
+  <!---->
+  <!--</select>-->
+
+  <!--<select id="statisticsMonthAmountDetailBySalesman" resultType="" parameterType="">-->
+
+  <!--</select>-->
+
+  <!--<select id="statisticsMonthCountDetailByProduct" resultType="" parameterType="">-->
+
+  <!--</select>-->
+
+  <!--<select id="statisticsMonthAmountDetailByProduct" resultType="" parameterType="">-->
+
+  <!--</select>-->
+
 </mapper>
