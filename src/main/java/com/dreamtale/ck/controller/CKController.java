@@ -67,13 +67,19 @@ public class CKController {
 
     @RequestMapping("/statisticsProductList.html")
     public String statisticsMonthProductDetail(ModelMap modelMap, Integer yearMonth){
-        modelMap.put("result",ckService.statisticsProductDetail(getStatisticsMonthQueryParam(yearMonth)));
+        CkStatisticsDetailParam ckStatisticsDetailParam = getStatisticsMonthQueryParam(yearMonth);
+        modelMap.put("result",ckService.statisticsProductDetail(ckStatisticsDetailParam));
+        modelMap.put("yearMonth", ckStatisticsDetailParam.getYearMonth());
+        modelMap.put("sType", ckStatisticsDetailParam.getStatisticsType());
         return "statistics_product_list";
     }
 
     @RequestMapping("/statisticsSalesmanList.html")
     public String statisticsMonthSalesmanDetail(ModelMap modelMap, Integer yearMonth){
-        modelMap.put("result",ckService.statisticsSalesmanDetail(getStatisticsMonthQueryParam(yearMonth)));
+        CkStatisticsDetailParam ckStatisticsDetailParam = getStatisticsMonthQueryParam(yearMonth);
+        modelMap.put("result",ckService.statisticsSalesmanDetail(ckStatisticsDetailParam));
+        modelMap.put("yearMonth", ckStatisticsDetailParam.getYearMonth());
+        modelMap.put("sType", ckStatisticsDetailParam.getStatisticsType());
         return "statistics_salesman_list";
     }
 

@@ -17,6 +17,15 @@ public class CkStatisticsDetailParam {
      */
     Integer yearMonth =201809;
 
+    /**
+     * 产品ID
+     */
+    private Long productId;
+
+
+    private Long salesmanNo;
+
+
     public Integer getStatisticsType() {
         return statisticsType;
     }
@@ -39,5 +48,21 @@ public class CkStatisticsDetailParam {
 
     public void setYearMonth(Integer yearMonth) {
         this.yearMonth = yearMonth;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public Long getSalesmanNo() {
+        return salesmanNo;
+    }
+
+    public void setSalesmanNo(Long salesmanNo) {
+        this.salesmanNo = salesmanNo;
     }
 }

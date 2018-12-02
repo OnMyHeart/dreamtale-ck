@@ -292,23 +292,20 @@
     LEFT JOIN ck_district cd ON cu.district_no = cd.id
     <where>
       <if test="statisticsType==1">
-        co.`year_month` = #{yearMonth,jdbcType=BIGINT}
+        AND co.`year_month` = #{yearMonth,jdbcType=BIGINT}
       </if>
       <if test="statisticsType==2">
-        co.`year` = #{yearMonth,jdbcType=BIGINT}
+        AND co.`year` = #{yearMonth,jdbcType=BIGINT}
+      </if>
+      <if test="productId!=null">
+        AND co.product_id=#{productId,jdbcType=BIGINT}
       </if>
     </where>
     GROUP BY
       co.salesman_no
     ORDER BY
-      <if test="orderByType==1">
-        amount DESC,
-        count DESC
-      </if>
-      <if test="orderByType==2">
-        `count` DESC,
-        `amount` DESC
-      </if>
+      `amount` DESC,
+      `count` DESC
   </select>
 
   <select id="statisticsProductDetail" parameterType="com.dreamtale.ck.entity.param.CkStatisticsDetailParam" resultType="com.dreamtale.ck.entity.json.ProductRankJson">
@@ -322,25 +319,22 @@
     FROM
         ck_order co
         LEFT OUTER JOIN ck_product cp ON cp.id = co.product_id
-        LEFT JOIN ck_product_type cpt ON cpt.`code` = cp.product_type
+        LEFT OUTER JOIN ck_product_type cpt ON cpt.`code` = cp.product_type
     <where>
       <if test="statisticsType==1">
-        co.`year_month` = #{yearMonth,jdbcType=BIGINT}
+        AND co.`year_month` = #{yearMonth,jdbcType=BIGINT}
       </if>
       <if test="statisticsType==2">
-        co.`year` = #{yearMonth,jdbcType=BIGINT}
+        AND co.`year` = #{yearMonth,jdbcType=BIGINT}
+      </if>
+      <if test="salesmanNo!=null">
+        AND co.salesman_no=#{salesmanNo,jdbcType=BIGINT}
       </if>
     </where>
     GROUP BY
         co.product_id , cpt.`name`
     ORDER BY
-      <if test="orderByType==1">
-        amount DESC,
-        count DESC
-      </if>
-      <if test="orderByType==2">
-        `count` DESC,
-        `amount` DESC
-      </if>
+        `amount` DESC,
+        `count` DESC
   </select>
 </mapper>

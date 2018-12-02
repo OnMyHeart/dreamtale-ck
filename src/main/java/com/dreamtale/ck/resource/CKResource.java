@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * 仓库业务
  * @author  dream
@@ -237,6 +239,16 @@ public class CKResource {
             pageResult.setRows(pageInfo.getList());
         }
         return pageResult;
+    }
+
+    @GetMapping("/statisticsSalesmanDetail")
+    public List<SalesmanRankJson> statisticsSalesmanDetail(CkStatisticsDetailParam ckStatisticsDetailParam){
+        return ckService.statisticsSalesmanDetail(ckStatisticsDetailParam);
+    }
+
+    @GetMapping("/statisticsProductDetail")
+    public List<ProductRankJson> statisticsProductDetail(CkStatisticsDetailParam ckStatisticsDetailParam){
+        return ckService.statisticsProductDetail(ckStatisticsDetailParam);
     }
 
 }
