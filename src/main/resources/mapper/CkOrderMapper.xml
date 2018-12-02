@@ -247,20 +247,71 @@
       ORDER BY co.`year_month` desc
   </select>
 
-  <!--<select id="statisticsMonthAmountDetailByProduct" resultType="" parameterType="">-->
-  <!---->
-  <!--</select>-->
+  <select id="statisticsSalesmanDetail" parameterType="com.dreamtale.ck.entity.param.CkStatisticsDetailParam" resultType="com.dreamtale.ck.entity.json.SalesmanRankJson">
+    SELECT
+      cu.id AS salesmanNo,
+      cu.`name` AS salesmanName,
+      cu.phone AS salesmanPhone,
+      SUM( co.amount ) AS `amount`,
+      SUM( co.count ) AS `count`,
+      cu.`status` AS salesmanStatus,
+      cd.`name` AS salesmanDistrictname
+    FROM
+        ck_order co
+    LEFT JOIN ck_user cu ON cu.id = co.salesman_no
+    LEFT JOIN ck_district cd ON cu.district_no = cd.id
+    <where>
+      <if test="statisticsType==1">
+        co.`year_month` = #{yearMonth,jdbcType=BIGINT}
+      </if>
+      <if test="statisticsType==2">
+        co.`year` = #{yearMonth,jdbcType=BIGINT}
+      </if>
+    </where>
+    GROUP BY
+      co.salesman_no
+    ORDER BY
+      <if test="orderByType==1">
+        amount DESC,
+        count DESC
+      </if>
+      <if test="orderByType==2">
+        `count` DESC,
+        `amount` DESC
+      </if>
+  </select>
 
-  <!--<select id="statisticsMonthAmountDetailBySalesman" resultType="" parameterType="">-->
-
-  <!--</select>-->
-
-  <!--<select id="statisticsMonthCountDetailByProduct" resultType="" parameterType="">-->
-
-  <!--</select>-->
-
-  <!--<select id="statisticsMonthAmountDetailByProduct" resultType="" parameterType="">-->
-
-  <!--</select>-->
+  <select id="statisticsProductDetail" parameterType="com.dreamtale.ck.entity.param.CkStatisticsDetailParam" resultType="com.dreamtale.ck.entity.json.ProductRankJson">
+    SELECT
+      co.product_id AS productId,
+      SUM( co.amount ) AS `amount`,
+      SUM( co.count ) AS `count`,
+      cp.`name` AS productName,
+      cp.`status` AS productStatus,
+      cpt.`name` AS productTypeName
+    FROM
+        ck_order co
+        LEFT OUTER JOIN ck_product cp ON cp.id = co.product_id
+        LEFT JOIN ck_product_type cpt ON cpt.`code` = cp.product_type
+    <where>
+      <if test="statisticsType==1">
+        co.`year_month` = #{yearMonth,jdbcType=BIGINT}
+      </if>
+      <if test="statisticsType==2">
+        co.`year` = #{yearMonth,jdbcType=BIGINT}
+      </if>
+    </where>
+    GROUP BY
+        co.product_id , cpt.`name`
+    ORDER BY
+      <if test="orderByType==1">
+        amount DESC,
+        count DESC
+      </if>
+      <if test="orderByType==2">
+        `count` DESC,
+        `amount` DESC
+      </if>
+  </select>
 
 </mapper>

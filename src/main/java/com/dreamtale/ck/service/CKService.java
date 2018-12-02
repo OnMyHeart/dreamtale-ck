@@ -281,4 +281,27 @@ public class CKService {
         return pageInfo;
     }
 
+    public List<SalesmanRankJson> statisticsSalesmanDetail(CkStatisticsDetailParam ckStatisticsDetailParam){
+        return ckOrderMapper.statisticsSalesmanDetail(ckStatisticsDetailParam);
+    }
+
+    public List<ProductRankJson> statisticsProductDetail(CkStatisticsDetailParam ckStatisticsDetailParam){
+        return ckOrderMapper.statisticsProductDetail(ckStatisticsDetailParam);
+    }
+
+    public CkStatisticsDetailJson statisticsDetail(CkStatisticsDetailParam ckStatisticsDetailParam){
+        CkStatisticsDetailJson ckStatisticsDetailJson = new CkStatisticsDetailJson();
+        ckStatisticsDetailParam.setOrderByType(1);
+        List<ProductRankJson> productRankJsonSalesNum = ckOrderMapper.statisticsProductDetail(ckStatisticsDetailParam);
+        List<SalesmanRankJson> salesmanRankJsonSalesNum = ckOrderMapper.statisticsSalesmanDetail(ckStatisticsDetailParam);
+        ckStatisticsDetailParam.setOrderByType(2);
+        List<ProductRankJson> productRankJsonSalesMoney = ckOrderMapper.statisticsProductDetail(ckStatisticsDetailParam);
+        List<SalesmanRankJson> salesmanRankJsonSalesMoney  = ckOrderMapper.statisticsSalesmanDetail(ckStatisticsDetailParam);
+        ckStatisticsDetailJson.setProductRankJsonSalesMoney(productRankJsonSalesMoney);
+        ckStatisticsDetailJson.setProductRankJsonSalesNum(productRankJsonSalesNum);
+        ckStatisticsDetailJson.setSalesmanRankJsonSalesMoney(salesmanRankJsonSalesMoney);
+        ckStatisticsDetailJson.setSalesmanRankJsonSalesNum(salesmanRankJsonSalesNum);
+        return ckStatisticsDetailJson;
+    }
+
 }

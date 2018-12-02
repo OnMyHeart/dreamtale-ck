@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>订单列表</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link href="//dream.picp.vip/static/admin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet" />
+    <link href="//dream.picp.vip/static/admin/css/font-awesome.css?v=4.4.0" rel="stylesheet" />
+    <link href="//dream.picp.vip/static/admin/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" />
+    <link href="//dream.picp.vip/static/admin/css/animate.css" rel="stylesheet" />
+    <link href="//dream.picp.vip/static/admin/css/style.css?v=4.1.0" rel="stylesheet" />
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <!-- Panel Other -->
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>历史月度数据</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+                </div>
+            </div>
+            <div class="row row-lg">
+                <div class="col-sm-12">
+                    <!-- Example Events -->
+                    <div class="example-wrap">
+                        <div class="example">
+                            <table id="exampleTableEvents" data-mobile-responsive="true"></table>
+                        </div>
+                    </div>
+                    <!-- End Example Events -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Panel Other -->
+</div>
+<!-- 全局js -->
+<script src="//dream.picp.vip/static/admin/js/jquery.min.js?v=2.1.4"></script>
+<script src="//dream.picp.vip/static/admin/js/bootstrap.min.js?v=3.3.6"></script>
+<!-- 自定义js -->
+<script src="//dream.picp.vip/static/admin/js/content.js?v=1.0.0"></script>
+<script src="//dream.picp.vip/static/common/js/common.js?v=1.0.0"></script>
+<!-- Bootstrap table -->
+<script src="//dream.picp.vip/static/admin/js/plugins/bootstrap-table/bootstrap-table.min.js?v=1.9.0"></script>
+<script src="//dream.picp.vip/static/admin/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js?v=1.9.0"></script>
+<script src="//dream.picp.vip/static/admin/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js?v=1.0.0"></script>
+<!-- layer 弹框 -->
+<script src="//dream.picp.vip/static/layer/dist/layer.js?v=1.0.0"></script>
+<script src="//dream.picp.vip/static/admin/js/plugins/layer/laydate/laydate.js"></script>
+<!-- Peity -->
+<script>
+    $(function() {
+        $('#exampleTableEvents').bootstrapTable({
+            url: "statisticsEachMonthAmount",
+            search: false,
+            striped: true,
+            pagination: true,
+            showRefresh: true,
+            showToggle: true,
+            showColumns: true,
+            dataType: "json",
+            iconSize: 'outline',
+            cache: false,
+            toolbar: '#exampleTableEventsToolbar',
+            icons: {
+                refresh: 'glyphicon-repeat',
+                toggle: 'glyphicon-list-alt',
+                columns: 'glyphicon-list'
+            },
+            sidePagination: "server",
+            columns: [
+                {field:"yearMonth",title:"月份",align: 'center', valign: 'middle',data:"yearMonth"},
+                {field:"count",title:"销售数量(单位：盒)",align: 'center', valign: 'middle',data:"count"},
+                {field:"amount",title:"销售额(单位：元)",align: 'center', valign: 'middle',data:"amount",
+                    formatter:function (value, row, index) {
+                        return [row.amount.toFixed(2)].join("元");
+                    }
+                },
+                {field:"opt",title:"当月销售详情",align: 'center', valign: 'middle',data:"opt",
+                    formatter:function (value, row, index) {
+                        return [
+                            '<a type="button" href="statisticsMonthProductDetail.html?yearMonth='+row.yearMonth+'" class="detail btn btn-success btn-xs"><i class="glyphicon glyphicon-th-list" aria-hidden="true"></i>&nbsp;产品</a>',
+                            '<a type="button" href="statisticsMonthSalesmanDetail.html?yearMonth='+row.yearMonth+'" class="detail btn btn-success btn-xs"><i class="glyphicon glyphicon-th-list" aria-hidden="true"></i>&nbsp;业务员</a>'
+                        ].join("&nbsp;&nbsp;");
+                    }
+                }
+            ]
+        });
+    });
+</script>
+</body>
+</html>

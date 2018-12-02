@@ -3,6 +3,7 @@ package com.dreamtale.ck.mapper;
 import com.dreamtale.ck.entity.json.*;
 import com.dreamtale.ck.entity.param.CkOrderInsertParam;
 import com.dreamtale.ck.entity.param.CkOrderListQueryParam;
+import com.dreamtale.ck.entity.param.CkStatisticsDetailParam;
 import com.dreamtale.ck.entity.param.CkStatisticsQueryParam;
 import com.dreamtale.ck.entity.pojo.CkOrder;
 import org.apache.ibatis.annotations.Mapper;
@@ -66,5 +67,9 @@ public interface CkOrderMapper {
      * @return
      */
     List<CkStatisticsEachMonthCountJson> statisticsEachMonthCount();
+
+    List<SalesmanRankJson> statisticsSalesmanDetail(CkStatisticsDetailParam ckStatisticsDetailParam);
+
+    List<ProductRankJson> statisticsProductDetail(CkStatisticsDetailParam ckStatisticsDetailParam);
 
 }

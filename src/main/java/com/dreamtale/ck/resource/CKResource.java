@@ -239,4 +239,9 @@ public class CKResource {
         return pageResult;
     }
 
+    @RequestMapping("/statisticsEachMonthDetail")
+    public String statisticsEachMonthDetail(CkStatisticsDetailParam ckStatisticsDetailParam){
+        return "statistics_each_month_detail";
+    }
+
 }

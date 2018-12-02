@@ -1,0 +1,81 @@
+<!DOCTYPE html SYSTEM "//www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="//www.w3.org/1999/xhtml"
+      xmlns:th="//www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>月度业务员销售数据统计</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="//dream.picp.vip/static/admin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="//dream.picp.vip/static/admin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <!-- Data Tables -->
+    <link href="//dream.picp.vip/static/admin/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="//dream.picp.vip/static/admin/css/animate.css" rel="stylesheet">
+    <link href="//dream.picp.vip/static/admin/css/style.css?v=4.1.0" rel="stylesheet">
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>月度业务员销售数据统计</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                        <tr>
+                            <th>业务员姓名</th>
+                            <th>业务员联系方式</th>
+                            <th>业务员状态</th>
+                            <th>业务员销售额（单位：元）</th>
+                            <th>业务员销量（单位：盒）</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="ck, ckStat : ${result}">
+                            <td th:text="${ck.salesmanName}">-</td>
+                            <td th:text="${ck.salesmanPhone}">-</td>
+                            <td th:text="${ck.salesmanStatus} eq '1' ? '正常' : '已离职' " ></td>
+                            <td th:text="${ck.amount}">-</td>
+                            <td th:text="${ck.count}">-</td>
+                            <td>
+                                <a href="statisticsEachMonthDetail.html?yearMonth='+row.yearMonth+'" class="detail btn btn-success btn-xs">
+                                    <i class="glyphicon glyphicon-th-list" aria-hidden="true"></i>&nbsp;详情</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 全局js -->
+<script src="//dream.picp.vip/static/admin/js/jquery.min.js?v=2.1.4"></script>
+<script src="//dream.picp.vip/static/admin/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="//dream.picp.vip/static/admin/js/plugins/jeditable/jquery.jeditable.js"></script>
+<!-- Data Tables -->
+<script src="//dream.picp.vip/static/admin/js/plugins/dataTables/jquery.dataTables.js"></script>
+<script src="//dream.picp.vip/static/admin/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+<!-- 自定义js -->
+<script src="//dream.picp.vip/static/admin/js/content.js?v=1.0.0"></script>
+<!-- Page-Level Scripts -->
+<script>
+    $(document).ready(function () {
+        $('.dataTables-example').dataTable();
+    });
+</script>
+</body>
+
+</html>

@@ -1,10 +1,13 @@
 package com.dreamtale.ck.controller;
 
+import com.dreamtale.ck.entity.param.CkStatisticsDetailParam;
 import com.dreamtale.ck.service.CKService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 仓库管理
@@ -55,8 +58,31 @@ public class CKController {
     }
 
     @RequestMapping("/statisticsEachMonth.html")
-    public String statisticsAmountEachMonth(){
-        return "statistics_each_month";
+    public String statisticsEachMonth(){
+        return "statistics_month";
+    }
+
+    @RequestMapping("/statisticsMonthProductDetail.html")
+    public String statisticsMonthProductDetail(ModelMap modelMap, Integer yearMonth){
+        modelMap.put("result",ckService.statisticsProductDetail(getStatisticsMonthQueryParam(yearMonth)));
+        return "statistics_month_product_detail";
+    }
+
+    @RequestMapping("/statisticsMonthSalesmanDetail.html")
+    public String statisticsMonthSalesmanDetail(ModelMap modelMap, Integer yearMonth){
+        modelMap.put("result",ckService.statisticsSalesmanDetail(getStatisticsMonthQueryParam(yearMonth)));
+        return "statistics_month_salesman_detail";
+    }
+
+    public static CkStatisticsDetailParam getStatisticsMonthQueryParam(Integer yearMonth){
+        CkStatisticsDetailParam ckStatisticsDetailParam = new CkStatisticsDetailParam();
+        ckStatisticsDetailParam.setYearMonth(yearMonth);
+        if(yearMonth!=null && yearMonth>9999){
+            ckStatisticsDetailParam.setStatisticsType(1);
+        } else if(yearMonth!=null && yearMonth<=9999){
+            ckStatisticsDetailParam.setStatisticsType(2);
+        }
+        return ckStatisticsDetailParam;
     }
 
 }
