@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>订单列表</title>
+    <title>历史年度数据</title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <link rel="shortcut icon" href="favicon.ico" />
@@ -20,7 +20,7 @@
     <!-- Panel Other -->
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>历史月度数据</h5>
+            <h5>历史年度数据</h5>
         </div>
         <div class="ibox-content">
             <div class="row row-lg">
@@ -59,7 +59,7 @@
 <script>
     $(function() {
         $('#exampleTableEvents').bootstrapTable({
-            url: "statisticsMonthAmountAndCount",
+            url: "statisticsYearAmountAndCount",
             search: false,
             striped: true,
             pagination: true,
@@ -77,14 +77,14 @@
             },
             sidePagination: "server",
             columns: [
-                {field:"yearMonth",title:"月份",align: 'center', valign: 'middle',data:"yearMonth"},
+                {field:"yearMonth",title:"年份",align: 'center', valign: 'middle',data:"yearMonth"},
                 {field:"count",title:"销售数量(单位：盒)",align: 'center', valign: 'middle',data:"count"},
                 {field:"amount",title:"销售额(单位：元)",align: 'center', valign: 'middle',data:"amount",
                     formatter:function (value, row, index) {
                         return [row.amount.toFixed(2)].join("元");
                     }
                 },
-                {field:"opt",title:"当月销售详情",align: 'center', valign: 'middle',data:"opt",
+                {field:"opt",title:"当年销售详情",align: 'center', valign: 'middle',data:"opt",
                     formatter:function (value, row, index) {
                         return [
                             '<a type="button" href="statisticsMonthProductDetail.html?yearMonth='+row.yearMonth+'" class="detail btn btn-success btn-xs"><i class="glyphicon glyphicon-th-list" aria-hidden="true"></i>&nbsp;产品</a>',

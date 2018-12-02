@@ -1,7 +1,6 @@
 package com.dreamtale.ck.service;
 
 import com.alibaba.fastjson.JSONArray;
-import com.dreamtale.ck.constant.common.BaseParam;
 import com.dreamtale.ck.constant.common.PageResult;
 import com.dreamtale.ck.entity.json.*;
 import com.dreamtale.ck.entity.param.*;
@@ -21,7 +20,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -134,39 +132,29 @@ public class CKService {
     }
 
     public CkStatisticsJson queryStatisticsInfo(){
-        CkStatisticsQueryParam ckStatisticsQueryParam = new CkStatisticsQueryParam();
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DATE, 1);
-        calendar.set(Calendar.AM_PM, 0);
-        calendar.set(Calendar.HOUR, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        //查月度
-        Date startDate = calendar.getTime();
-        calendar.add(Calendar.MONTH, 1);
-        Date endDate = calendar.getTime();
-        ckStatisticsQueryParam.setStartDate(startDate);
-        ckStatisticsQueryParam.setEndDate(endDate);
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH)+1;
+        String yearMonth = String.valueOf(year).concat(String.valueOf(month));
+
+        CkStatisticsQueryParam ckStatisticsQueryParam = new CkStatisticsQueryParam();
+        ckStatisticsQueryParam.setStatisticsType(1);
+        ckStatisticsQueryParam.setYearMonth(Integer.parseInt(yearMonth));
         ckStatisticsQueryParam.setProductType("PT01");
-        List<CkSalesMoneyJson> salesMoneyOfMonth = ckOrderMapper.salesMoneyByDate(ckStatisticsQueryParam);
-        List<CkSalesRankingJson> salesRankingOfMonth = ckOrderMapper.salesRankingByDate(ckStatisticsQueryParam);
+        List<CkSalesMoneyJson> salesMoneyOfMonth = ckOrderMapper.salesAmountRank(ckStatisticsQueryParam);
+        List<CkSalesRankingJson> salesRankingOfMonth = ckOrderMapper.salesCountRank(ckStatisticsQueryParam);
         ckStatisticsQueryParam.setProductType("PT02");
-        List<CkSalesMoneyJson> salesMoneyOfMonth2 = ckOrderMapper.salesMoneyByDate(ckStatisticsQueryParam);
-        List<CkSalesRankingJson> salesRankingOfMonth2 = ckOrderMapper.salesRankingByDate(ckStatisticsQueryParam);
-        //查年度
-        calendar.set(Calendar.MONTH, 0);
-        startDate = calendar.getTime();
-        calendar.add(Calendar.YEAR, 1);
-        endDate = calendar.getTime();
-        ckStatisticsQueryParam.setStartDate(startDate);
-        ckStatisticsQueryParam.setEndDate(endDate);
+        List<CkSalesMoneyJson> salesMoneyOfMonth2 = ckOrderMapper.salesAmountRank(ckStatisticsQueryParam);
+        List<CkSalesRankingJson> salesRankingOfMonth2 = ckOrderMapper.salesCountRank(ckStatisticsQueryParam);
+
+        ckStatisticsQueryParam.setStatisticsType(2);
+        ckStatisticsQueryParam.setYearMonth(year);
         ckStatisticsQueryParam.setProductType("PT01");
-        List<CkSalesMoneyJson> salesMoneyOfYear = ckOrderMapper.salesMoneyByDate(ckStatisticsQueryParam);
-        List<CkSalesRankingJson> salesRankingOfYear = ckOrderMapper.salesRankingByDate(ckStatisticsQueryParam);
+        List<CkSalesMoneyJson> salesMoneyOfYear = ckOrderMapper.salesAmountRank(ckStatisticsQueryParam);
+        List<CkSalesRankingJson> salesRankingOfYear = ckOrderMapper.salesCountRank(ckStatisticsQueryParam);
         ckStatisticsQueryParam.setProductType("PT02");
-        List<CkSalesMoneyJson> salesMoneyOfYear2 = ckOrderMapper.salesMoneyByDate(ckStatisticsQueryParam);
-        List<CkSalesRankingJson> salesRankingOfYear2 = ckOrderMapper.salesRankingByDate(ckStatisticsQueryParam);
+        List<CkSalesMoneyJson> salesMoneyOfYear2 = ckOrderMapper.salesAmountRank(ckStatisticsQueryParam);
+        List<CkSalesRankingJson> salesRankingOfYear2 = ckOrderMapper.salesCountRank(ckStatisticsQueryParam);
 
         //计算销售总额和销售总量
         BigDecimal amountOfMonth = new BigDecimal(0.00);
@@ -265,19 +253,11 @@ public class CKService {
         return null;
     }
 
-    public PageInfo<CkStatisticsEachMonthJson> statisticsEachMonthAmount(BaseParam baseParam) {
+    public PageInfo<CkStatisticsEachMonthJson> statisticsAmountAndCount(CkStatisticsInfoQueryParam CkStatisticsInfoQueryParam) {
         PageInfo<CkStatisticsEachMonthJson> pageInfo = PageHelper.offsetPage(
-                baseParam.getOffset(),
-                baseParam.getLimit()
-        ).doSelectPageInfo(()->ckOrderMapper.statisticsEachMonthAmount());
-        return pageInfo;
-    }
-
-    public PageInfo<CkStatisticsEachMonthCountJson> statisticsEachMonthCount(BaseParam baseParam) {
-        PageInfo<CkStatisticsEachMonthCountJson> pageInfo = PageHelper.offsetPage(
-                baseParam.getOffset(),
-                baseParam.getLimit()
-        ).doSelectPageInfo(()->ckOrderMapper.statisticsEachMonthCount());
+                CkStatisticsInfoQueryParam.getOffset(),
+                CkStatisticsInfoQueryParam.getLimit()
+        ).doSelectPageInfo(()->ckOrderMapper.statisticsAmountAndCount(CkStatisticsInfoQueryParam));
         return pageInfo;
     }
 

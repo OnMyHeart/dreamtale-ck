@@ -1,6 +1,5 @@
 package com.dreamtale.ck.resource;
 
-import com.dreamtale.ck.constant.common.BaseParam;
 import com.dreamtale.ck.constant.common.ResultJson;
 import com.dreamtale.ck.entity.json.*;
 import com.dreamtale.ck.entity.param.*;
@@ -215,9 +214,9 @@ public class CKResource {
         return ckService.queryStatistics(ckStatisticsInfoQueryParam);
     }
 
-    @GetMapping("/statisticsEachMonthAmount")
-    PageResult<CkStatisticsEachMonthJson> statisticsEachMonthAmount(BaseParam baseParam){
-        PageInfo<CkStatisticsEachMonthJson> pageInfo = ckService.statisticsEachMonthAmount(baseParam);
+    @RequestMapping("/statisticsMonthAmountAndCount")
+    PageResult<CkStatisticsEachMonthJson> statisticsMonthAmountAndCount(CkStatisticsInfoQueryParam ckStatisticsInfoQueryParam){
+        PageInfo<CkStatisticsEachMonthJson> pageInfo = ckService.statisticsAmountAndCount(ckStatisticsInfoQueryParam);
         PageResult<CkStatisticsEachMonthJson> pageResult = new PageResult<>();
         if(pageInfo!=null){
             pageResult.setPage(new Long(pageInfo.getPages()));
@@ -227,21 +226,17 @@ public class CKResource {
         return pageResult;
     }
 
-    @GetMapping("/statisticsEachMonthCount")
-    PageResult<CkStatisticsEachMonthCountJson> statisticsEachMonthCount(BaseParam baseParam){
-        PageInfo<CkStatisticsEachMonthCountJson> pageInfo = ckService.statisticsEachMonthCount(baseParam);
-        PageResult<CkStatisticsEachMonthCountJson> pageResult = new PageResult<>();
+    @RequestMapping("/statisticsYearAmountAndCount")
+    PageResult<CkStatisticsEachMonthJson> statisticsYearAmountAndCount(CkStatisticsInfoQueryParam ckStatisticsInfoQueryParam){
+        ckStatisticsInfoQueryParam.setStatisticsType(2);
+        PageInfo<CkStatisticsEachMonthJson> pageInfo = ckService.statisticsAmountAndCount(ckStatisticsInfoQueryParam);
+        PageResult<CkStatisticsEachMonthJson> pageResult = new PageResult<>();
         if(pageInfo!=null){
             pageResult.setPage(new Long(pageInfo.getPages()));
             pageResult.setTotal(pageInfo.getTotal());
             pageResult.setRows(pageInfo.getList());
         }
         return pageResult;
-    }
-
-    @RequestMapping("/statisticsEachMonthDetail")
-    public String statisticsEachMonthDetail(CkStatisticsDetailParam ckStatisticsDetailParam){
-        return "statistics_each_month_detail";
     }
 
 }

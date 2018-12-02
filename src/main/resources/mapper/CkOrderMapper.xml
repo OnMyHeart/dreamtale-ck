@@ -177,8 +177,9 @@
      WHERE co.status = 1
      ORDER BY create_time DESC, id DESC
   </select>
+
   <!-- 根据日期时间段统业务员的计销售额排行 -->
-  <select id="salesMoneyByDate" resultType="com.dreamtale.ck.entity.json.CkSalesMoneyJson" parameterType="com.dreamtale.ck.entity.param.CkStatisticsQueryParam">
+  <select id="salesAmountRank" resultType="com.dreamtale.ck.entity.json.CkSalesMoneyJson" parameterType="com.dreamtale.ck.entity.param.CkStatisticsQueryParam">
     SELECT
       ca.amount AS  amount,
       cu.`name` AS salesmanName,
@@ -190,15 +191,21 @@
       LEFT OUTER JOIN ck_product cp ON cp.id = ck.product_id
       <where>
         ck.status = 1
+        <if test="statisticsType==1">
+          AND  ck.`year_month` = #{yearMonth,jdbcType=VARCHAR}
+        </if>
+        <if test="statisticsType==2">
+          AND  ck.`year` = #{yearMonth,jdbcType=VARCHAR}
+        </if>
         <if test="productType!=null">
           AND  cp.product_type = #{productType,jdbcType=VARCHAR}
         </if>
-        <if test="startDate!=null">
-          AND ck.create_time <![CDATA[ >= ]]> #{startDate,jdbcType=TIMESTAMP}
-        </if>
-        <if test="endDate!=null">
-          AND ck.create_time <![CDATA[ < ]]> #{endDate,jdbcType=TIMESTAMP}
-        </if>
+        <!--<if test="startDate!=null">-->
+          <!--AND ck.create_time <![CDATA[ >= ]]> #{startDate,jdbcType=TIMESTAMP}-->
+        <!--</if>-->
+        <!--<if test="endDate!=null">-->
+          <!--AND ck.create_time <![CDATA[ < ]]> #{endDate,jdbcType=TIMESTAMP}-->
+        <!--</if>-->
       </where>
       GROUP BY ck.salesman_no ) ca
       LEFT OUTER JOIN ck_user cu ON cu.id = ca.salesman_no
@@ -206,8 +213,9 @@
       ca.amount DESC,
       ca.count DESC
   </select>
+
   <!-- 根据日期时间段统计销量排行 -->
-  <select id="salesRankingByDate" resultType="com.dreamtale.ck.entity.json.CkSalesRankingJson" parameterType="com.dreamtale.ck.entity.param.CkStatisticsQueryParam">
+  <select id="salesCountRank" resultType="com.dreamtale.ck.entity.json.CkSalesRankingJson" parameterType="com.dreamtale.ck.entity.param.CkStatisticsQueryParam">
     SELECT
       cp.id AS productId,
       cp.`name` AS productName,
@@ -217,15 +225,21 @@
     LEFT OUTER JOIN ck_product cp ON cp.id = co.product_id
       <where>
         co.status = 1
+        <if test="statisticsType==1">
+          AND  co.`year_month` = #{yearMonth,jdbcType=VARCHAR}
+        </if>
+        <if test="statisticsType==2">
+          AND  co.`year` = #{yearMonth,jdbcType=VARCHAR}
+        </if>
         <if test="productType!=null">
           AND  cp.product_type = #{productType,jdbcType=VARCHAR}
         </if>
-        <if test="startDate!=null">
-          AND co.create_time <![CDATA[ >= ]]> #{startDate,jdbcType=TIMESTAMP}
-        </if>
-        <if test="endDate!=null">
-          AND co.create_time <![CDATA[ < ]]> #{endDate,jdbcType=TIMESTAMP}
-        </if>
+        <!--<if test="startDate!=null">-->
+          <!--AND co.create_time <![CDATA[ >= ]]> #{startDate,jdbcType=TIMESTAMP}-->
+        <!--</if>-->
+        <!--<if test="endDate!=null">-->
+          <!--AND co.create_time <![CDATA[ < ]]> #{endDate,jdbcType=TIMESTAMP}-->
+        <!--</if>-->
       </where>
       GROUP BY co.product_id ) cc
     LEFT OUTER JOIN ck_product cp ON cp.id = cc.product_id
@@ -234,17 +248,33 @@
 	  cc.product_id ASC
   </select>
 
-  <!-- 统计每月的销售额和销量 -->
-  <select id="statisticsEachMonthAmount" resultType="com.dreamtale.ck.entity.json.CkStatisticsEachMonthJson">
-      SELECT co.`year_month` as yearMonth,  sum(co.amount) as amount, sum(co.count) as `count` from ck_order co
-      GROUP BY co.`year_month` ORDER BY co.`year_month` desc
-  </select>
-
-  <!-- 统计每月的总销量-->
-  <select id="statisticsEachMonthCount" resultType="com.dreamtale.ck.entity.json.CkStatisticsEachMonthCountJson" >
-      SELECT co.`year_month` as yearMonth,  sum(co.count) as `count` from ck_order co
-      GROUP BY co.`year_month`
-      ORDER BY co.`year_month` desc
+  <!-- 统计销售额和销量 -->
+  <select id="statisticsAmountAndCount" resultType="com.dreamtale.ck.entity.json.CkStatisticsEachMonthJson" parameterType="com.dreamtale.ck.entity.param.CkStatisticsInfoQueryParam">
+      SELECT
+        <if test="statisticsType==1">
+          co.`year_month` as yearMonth,
+        </if>
+        <if test="statisticsType==2">
+          co.`year` as yearMonth,
+        </if>
+        sum(co.amount) as amount,
+        sum(co.count) as `count`
+      from ck_order co
+      GROUP BY
+        <if test="statisticsType==1">
+          co.`year_month`
+        </if>
+        <if test="statisticsType==2">
+          co.`year`
+        </if>
+      ORDER BY
+        <if test="statisticsType==1">
+          co.`year_month`
+        </if>
+        <if test="statisticsType==2">
+          co.`year`
+        </if>
+      desc
   </select>
 
   <select id="statisticsSalesmanDetail" parameterType="com.dreamtale.ck.entity.param.CkStatisticsDetailParam" resultType="com.dreamtale.ck.entity.json.SalesmanRankJson">
@@ -313,5 +343,4 @@
         `amount` DESC
       </if>
   </select>
-
 </mapper>

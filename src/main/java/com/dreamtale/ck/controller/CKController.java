@@ -60,6 +60,11 @@ public class CKController {
         return "statistics_month";
     }
 
+    @RequestMapping("/statisticsEachYear.html")
+    public String statisticsEachYear(){
+        return "statistics_year";
+    }
+
     @RequestMapping("/statisticsMonthProductDetail.html")
     public String statisticsMonthProductDetail(ModelMap modelMap, Integer yearMonth){
         modelMap.put("result",ckService.statisticsProductDetail(getStatisticsMonthQueryParam(yearMonth)));

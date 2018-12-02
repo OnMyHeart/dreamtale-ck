@@ -2,44 +2,26 @@ package com.dreamtale.ck.entity.param;
 
 import com.dreamtale.ck.constant.common.BaseParam;
 
-import java.util.Date;
-
 public class CkStatisticsQueryParam extends BaseParam {
 
-    /**
-     * 时间段 开始时间
-     */
-    private Date startDate;
+    private Integer yearMonth = 201809;
 
     /**
-     * 时间段 结束时间
+     * 统计类型 【1-月 2-年】
      */
-    private Date endDate;
-
-    /**
-     * 统计类型 【1-天 2-周 3-月 4-季 5-年】
-     */
-    private Integer statisticsType;
+    private Integer statisticsType = 1;
 
     /**
      * 产品类型 【PT01：一部 PT02：二部】
      */
     private String productType;
 
-    public Date getStartDate() {
-        return startDate;
+    public Integer getYearMonth() {
+        return yearMonth;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setYearMonth(Integer yearMonth) {
+        this.yearMonth = yearMonth;
     }
 
     public Integer getStatisticsType() {

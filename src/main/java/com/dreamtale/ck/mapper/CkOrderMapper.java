@@ -1,10 +1,7 @@
 package com.dreamtale.ck.mapper;
 
 import com.dreamtale.ck.entity.json.*;
-import com.dreamtale.ck.entity.param.CkOrderInsertParam;
-import com.dreamtale.ck.entity.param.CkOrderListQueryParam;
-import com.dreamtale.ck.entity.param.CkStatisticsDetailParam;
-import com.dreamtale.ck.entity.param.CkStatisticsQueryParam;
+import com.dreamtale.ck.entity.param.*;
 import com.dreamtale.ck.entity.pojo.CkOrder;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -47,26 +44,20 @@ public interface CkOrderMapper {
      * @param ckStatisticsQueryParam
      * @return
      */
-    List<CkSalesMoneyJson> salesMoneyByDate(CkStatisticsQueryParam ckStatisticsQueryParam);
+    List<CkSalesMoneyJson> salesAmountRank(CkStatisticsQueryParam ckStatisticsQueryParam);
 
     /**
      * 销量排行榜
      * @param ckStatisticsQueryParam
      * @return
      */
-    List<CkSalesRankingJson> salesRankingByDate(CkStatisticsQueryParam ckStatisticsQueryParam);
+    List<CkSalesRankingJson> salesCountRank(CkStatisticsQueryParam ckStatisticsQueryParam);
 
     /**
      * 统计每月的销量和销售额
      * @return
      */
-    List<CkStatisticsEachMonthJson> statisticsEachMonthAmount();
-
-    /**
-     * 统计每月的总销量
-     * @return
-     */
-    List<CkStatisticsEachMonthCountJson> statisticsEachMonthCount();
+    List<CkStatisticsEachMonthJson> statisticsAmountAndCount(CkStatisticsInfoQueryParam ckStatisticsInfoQueryParam);
 
     List<SalesmanRankJson> statisticsSalesmanDetail(CkStatisticsDetailParam ckStatisticsDetailParam);
 
