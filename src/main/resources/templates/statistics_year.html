@@ -87,8 +87,8 @@
                 {field:"opt",title:"当年销售详情",align: 'center', valign: 'middle',data:"opt",
                     formatter:function (value, row, index) {
                         return [
-                            '<a type="button" href="statisticsMonthProductDetail.html?yearMonth='+row.yearMonth+'" class="detail btn btn-success btn-xs"><i class="glyphicon glyphicon-th-list" aria-hidden="true"></i>&nbsp;产品</a>',
-                            '<a type="button" href="statisticsMonthSalesmanDetail.html?yearMonth='+row.yearMonth+'" class="detail btn btn-success btn-xs"><i class="glyphicon glyphicon-th-list" aria-hidden="true"></i>&nbsp;业务员</a>'
+                            '<a type="button" href="statisticsProductList.html?yearMonth='+row.yearMonth+'" class="detail btn btn-success btn-xs"><i class="glyphicon glyphicon-th-list" aria-hidden="true"></i>&nbsp;产品</a>',
+                            '<a type="button" href="statisticsSalesmanList.html?yearMonth='+row.yearMonth+'" class="detail btn btn-success btn-xs"><i class="glyphicon glyphicon-th-list" aria-hidden="true"></i>&nbsp;业务员</a>'
                         ].join("&nbsp;&nbsp;");
                     }
                 }

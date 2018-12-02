@@ -65,16 +65,16 @@ public class CKController {
         return "statistics_year";
     }
 
-    @RequestMapping("/statisticsMonthProductDetail.html")
+    @RequestMapping("/statisticsProductList.html")
     public String statisticsMonthProductDetail(ModelMap modelMap, Integer yearMonth){
         modelMap.put("result",ckService.statisticsProductDetail(getStatisticsMonthQueryParam(yearMonth)));
-        return "statistics_month_product_detail";
+        return "statistics_product_list";
     }
 
-    @RequestMapping("/statisticsMonthSalesmanDetail.html")
+    @RequestMapping("/statisticsSalesmanList.html")
     public String statisticsMonthSalesmanDetail(ModelMap modelMap, Integer yearMonth){
         modelMap.put("result",ckService.statisticsSalesmanDetail(getStatisticsMonthQueryParam(yearMonth)));
-        return "statistics_month_salesman_detail";
+        return "statistics_salesman_list";
     }
 
     public static CkStatisticsDetailParam getStatisticsMonthQueryParam(Integer yearMonth){
