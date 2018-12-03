@@ -86,7 +86,7 @@
         var salesmanNo = $(obj).attr("salesman");
         var statisticsType = $("#sType").val();
         var yearMonth = $("#yearMonth").val();
-        //加载业务员下拉框
+
         $('#data_list').html("");
         var ajaxObj = {url: 'statisticsProductDetail',param:{"salesmanNo":salesmanNo, "statisticsType":statisticsType,"yearMonth":yearMonth},method:"GET",async:false};
         commonJS.sendAjaxRequest(ajaxObj, function (data) {
@@ -95,7 +95,11 @@
                 data.forEach(function (t) {
                     html += "<tr>";
                     html += "<td>"+t.productName+"</td>";
-                    html += "<td>"+t.productStatus+"</td>";
+                    if(t.salesmanStatus==1){
+                        html += "<td><span style='color: green'>正常</span></td>";
+                    } else {
+                        html += "<td><span style='color: red'>已停售</span></td>";
+                    }
                     html += "<td>"+t.productTypeName+"</td>";
                     html += "<td>"+t.amount+"</td>";
                     html += "<td>"+t.count+"</td>";

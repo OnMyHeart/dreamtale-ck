@@ -23,7 +23,13 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>月度产品销售数据统计</h5>
+                    <h5>
+                        月度产品销售数据统计
+                        <small> 一部总销量：<span style="color:red" th:text="${count1}" ></span>盒，</small>
+                        <small> 二部总销量：<span style="color:red" th:text="${count2}" ></span>盒，</small>
+                        <small> 一部总销售额：￥<span style="color:red" th:text="${amount1}" ></span>，</small>
+                        <small> 二部总销售额：￥<span style="color:red" th:text="${amount2}" ></span>，</small>
+                    </h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="btn btn-success" onclick="window.history.back(-1)">返回列表</i>
@@ -87,7 +93,7 @@
         var productId = $(obj).attr("product");
         var statisticsType = $("#sType").val();
         var yearMonth = $("#yearMonth").val();
-        //加载业务员下拉框
+
         var ajaxObj = {url: 'statisticsSalesmanDetail',param:{"productId":productId, "statisticsType":statisticsType,"yearMonth":yearMonth},method:"GET",async:false};
         commonJS.sendAjaxRequest(ajaxObj, function (data) {
             if(data!=null){
@@ -96,11 +102,15 @@
                     html += "<tr>";
                     html += "<td>"+t.salesmanName+"</td>";
                     html += "<td>"+t.salesmanPhone+"</td>";
-                    html += "<td>"+t.salesmanStatus+"</td>";
+                    if(t.salesmanStatus==1){
+                        html += "<td><span style='color: green'>正常</span></td>";
+                    } else {
+                        html += "<td><span style='color: red'>已离职</span></td>";
+                    }
                     html += "<td>"+t.amount+"</td>";
                     html += "<td>"+t.count+"</td>";
                     html += "</tr>";
-                })
+                });
                 $('#data_list').html(html);
 
                 // $('.dataTables-sales-detail').dataTable();
