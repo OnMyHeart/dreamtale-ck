@@ -45,7 +45,10 @@
     values 
     <foreach collection="orderList" item="order" index="index" separator="," >
       (#{order.id,jdbcType=BIGINT}, #{order.salesmanNo,jdbcType=VARCHAR},#{order.batchNo,jdbcType=VARCHAR},#{order.lowNo,jdbcType=VARCHAR}, #{order.productId,jdbcType=BIGINT},
-      #{order.count,jdbcType=BIGINT}, #{order.price,jdbcType=DECIMAL}, #{order.amount,jdbcType=DECIMAL},#{order.createTime,jdbcType=TIMESTAMP},1,DATE_FORMAT(now(),'%Y'),DATE_FORMAT(now(),'%m'),DATE_FORMAT(now(),'%Y%m'))
+      #{order.count,jdbcType=BIGINT}, #{order.price,jdbcType=DECIMAL}, #{order.amount,jdbcType=DECIMAL},#{order.createTime,jdbcType=TIMESTAMP},1,
+      DATE_FORMAT(#{order.createTime,jdbcType=TIMESTAMP},'%Y'),
+      DATE_FORMAT(#{order.createTime,jdbcType=TIMESTAMP},'%m'),
+      DATE_FORMAT(#{order.createTime,jdbcType=TIMESTAMP},'%Y%m'))
     </foreach>
 
   </insert>
