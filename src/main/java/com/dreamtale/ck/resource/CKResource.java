@@ -7,6 +7,7 @@ import com.dreamtale.ck.entity.pojo.CkDistrict;
 import com.dreamtale.ck.entity.pojo.CkProduct;
 import com.dreamtale.ck.constant.common.PageResult;
 import com.dreamtale.ck.service.CKService;
+import com.dreamtale.ck.utils.DataProcessUtils;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -249,6 +251,22 @@ public class CKResource {
     @GetMapping("/statisticsProductDetail")
     public List<ProductRankJson> statisticsProductDetail(CkStatisticsDetailParam ckStatisticsDetailParam){
         return ckService.statisticsProductDetail(ckStatisticsDetailParam);
+    }
+
+    @GetMapping("/statisticsProductDeptDetail")
+    public ProductDeptRankJson statisticsProductDeptDetail(CkStatisticsDetailParam ckStatisticsDetailParam){
+        ProductDeptRankJson productDeptRankJson = new ProductDeptRankJson();
+        List<ProductRankJson> data = ckService.statisticsProductDetail(ckStatisticsDetailParam);
+        productDeptRankJson.setData(data);
+        Long count1 = DataProcessUtils.getTotalCount("一部",data);
+        Long count2 = DataProcessUtils.getTotalCount("二部",data);
+        BigDecimal amount1 = DataProcessUtils.getTotalAmount("一部",data);
+        BigDecimal amount2 = DataProcessUtils.getTotalAmount("二部",data);
+        productDeptRankJson.setAmount1(amount1);
+        productDeptRankJson.setAmount2(amount2);
+        productDeptRankJson.setCount1(count1);
+        productDeptRankJson.setCount2(count2);
+        return productDeptRankJson;
     }
 
 }

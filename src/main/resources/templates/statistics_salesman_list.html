@@ -88,7 +88,7 @@
         var yearMonth = $("#yearMonth").val();
 
         $('#data_list').html("");
-        var ajaxObj = {url: 'statisticsProductDetail',param:{"salesmanNo":salesmanNo, "statisticsType":statisticsType,"yearMonth":yearMonth},method:"GET",async:false};
+        var ajaxObj = {url: 'statisticsProductDeptDetail',param:{"salesmanNo":salesmanNo, "statisticsType":statisticsType,"yearMonth":yearMonth},method:"GET",async:false};
         commonJS.sendAjaxRequest(ajaxObj, function (data) {
             if(data!=null){
                 var html = "";
@@ -104,7 +104,14 @@
                     html += "<td>"+t.amount+"</td>";
                     html += "<td>"+t.count+"</td>";
                     html += "</tr>";
-                })
+                });
+
+                html += "<tr>";
+                html += "<td colspan='5'>一部总销量：<span style='color:red' >"+${count1}+"</span>盒，</td>";
+                html += "<td colspan='5'>二部总销量：<span style='color:red' >"+${count2}+"</span>盒，</td>";
+                html += "<td colspan='5'>一部总销售额：￥<span style='color:red' >"+${amount1}+"</span></td>";
+                html += "<td colspan='5'>二部总销售额：￥<span style='color:red' >"+${amount2}+"</span></td>";
+                html += "</tr>";
                 $('#data_list').html(html);
 
                 // $('.dataTables-sales-detail').dataTable();
