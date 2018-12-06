@@ -227,7 +227,7 @@
       ( SELECT co.product_id, SUM( co.count ) AS count FROM ck_order co
     LEFT OUTER JOIN ck_product cp ON cp.id = co.product_id
       <where>
-        co.status = 1
+        co.`status`=1
         <if test="statisticsType==1">
           AND  co.`year_month` = #{yearMonth,jdbcType=VARCHAR}
         </if>
@@ -263,6 +263,7 @@
         sum(co.amount) as amount,
         sum(co.count) as `count`
       from ck_order co
+      WHERE co.`status`=1
       GROUP BY
         <if test="statisticsType==1">
           co.`year_month`
@@ -294,6 +295,7 @@
     LEFT JOIN ck_user cu ON cu.id = co.salesman_no
     LEFT JOIN ck_district cd ON cu.district_no = cd.id
     <where>
+        co.`status`=1
       <if test="statisticsType==1">
         AND co.`year_month` = #{yearMonth,jdbcType=BIGINT}
       </if>
@@ -324,6 +326,7 @@
         LEFT OUTER JOIN ck_product cp ON cp.id = co.product_id
         LEFT OUTER JOIN ck_product_type cpt ON cpt.`code` = cp.product_type
     <where>
+        co.`status`=1
       <if test="statisticsType==1">
         AND co.`year_month` = #{yearMonth,jdbcType=BIGINT}
       </if>
