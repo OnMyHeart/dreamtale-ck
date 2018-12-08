@@ -92,7 +92,15 @@
         commonJS.sendAjaxRequest(ajaxObj, function (data) {
             if(data!=null){
                 var html = "";
-                data.forEach(function (t) {
+                html += "<tr>";
+                html += "<td colspan='5'>";
+                html += "一部总销售额：￥<span style='color:red' >"+data.amount1+"</span>，";
+                html += "一部总销量：<span style='color:red' >"+data.count1+"</span>盒，";
+                html += "二部总销售额：￥<span style='color:red' >"+data.amount2+"</span>，";
+                html += "二部总销量：<span style='color:red' >"+data.count2+"</span>盒";
+                html+= "</td>"
+                html+= "</tr>"
+                data.data.forEach(function (t) {
                     html += "<tr>";
                     html += "<td>"+t.productName+"</td>";
                     if(t.productStatus==1){
@@ -105,13 +113,6 @@
                     html += "<td>"+t.count+"</td>";
                     html += "</tr>";
                 });
-
-                html += "<tr>";
-                html += "<td colspan='5'>一部总销量：<span style='color:red' >"+${count1}+"</span>盒，</td>";
-                html += "<td colspan='5'>二部总销量：<span style='color:red' >"+${count2}+"</span>盒，</td>";
-                html += "<td colspan='5'>一部总销售额：￥<span style='color:red' >"+${amount1}+"</span></td>";
-                html += "<td colspan='5'>二部总销售额：￥<span style='color:red' >"+${amount2}+"</span></td>";
-                html += "</tr>";
                 $('#data_list').html(html);
 
                 // $('.dataTables-sales-detail').dataTable();
