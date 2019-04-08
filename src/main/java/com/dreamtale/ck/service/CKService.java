@@ -19,6 +19,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -140,8 +141,8 @@ public class CKService {
     public CkStatisticsJson queryStatisticsInfo(){
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH)+1;
-        String yearMonth = String.valueOf(year).concat(String.valueOf(month));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+        String yearMonth =  sdf.format(calendar.getTime());
 
         CkStatisticsQueryParam ckStatisticsQueryParam = new CkStatisticsQueryParam();
         ckStatisticsQueryParam.setStatisticsType(1);
