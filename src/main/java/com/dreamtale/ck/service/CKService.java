@@ -123,6 +123,12 @@ public class CKService {
         return optNum>0;
     }
 
+    public boolean editProduct(CkProduct ckProduct){
+        int optNum = ckProductMapper.updateByPrimaryKeySelective(ckProduct);
+        return optNum>0;
+    }
+
+
     public boolean delProduct(Long id){
         CkProduct ckProduct = new CkProduct();
         ckProduct.setId(id);

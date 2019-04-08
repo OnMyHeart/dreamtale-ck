@@ -106,7 +106,64 @@
                     },
                     events: {
                         "click .editProduct":function (e, value, row, index) {
-
+                            $("#name").val(row.name);
+                            $("#unit").val(row.unit);
+                            $("#specification").val(row.specification);
+                            $("#price").val(row.price);
+                            $('#productType').val(row.productType);
+                            layer.open({
+                                title: "编辑产品",
+                                type: 1,
+                                skin: 'layui-layer-rim', //加上边框
+                                area: ['580px', '400px'], //宽高
+                                content: $("#addProduct"),
+                                btn: ['确定','取消'],
+                                btn1: function (index) {
+                                    var name = $("#name").val();
+                                    if(name==null || name=="" || name==undefined){
+                                        layer.msg("品名不能为空！");
+                                        return;
+                                    }
+                                    var unit = $("#unit").val();
+                                    if(unit==null || unit=="" || unit==undefined){
+                                        layer.msg("单位不能为空！");
+                                        return;
+                                    }
+                                    var specification = $("#specification").val();
+                                    if(specification==null || specification=="" || specification==undefined){
+                                        layer.msg("规格不能为空！");
+                                        return;
+                                    }
+                                    var price = $("#price").val();
+                                    if(price==null || price=="" || price==undefined){
+                                        layer.msg("价格不能为空！");
+                                        return;
+                                    }
+                                    var no = $("#no").val();
+                                    var productType = $('#productType').val();
+                                    var param = {
+                                        no: no,
+                                        name: name,
+                                        unit: unit,
+                                        specification: specification,
+                                        price: price,
+                                        productType: productType
+                                    };
+                                    var ajaxObj = {url: 'edit',param:param,method:"POST",async:false};
+                                    commonJS.sendAjaxRequest(ajaxObj, function (data) {
+                                        if(data.data==true){
+                                            layer.msg('保存产品成功！');
+                                        } else {
+                                            layer.msg("保存产品失败！")
+                                        }
+                                        layer.close(index);
+                                        window.location.reload();
+                                    });
+                                },
+                                btn2: function (index) {
+                                    layer.close(index);
+                                }
+                            });
                         },
                         "click .delProduct":function (e, value, row, index) {
                             layer.open({
@@ -154,18 +211,25 @@
                         layer.msg("单位不能为空！");
                         return;
                     }
+                    var specification = $("#specification").val();
+                    if(specification==null || specification=="" || specification==undefined){
+                        layer.msg("规格不能为空！");
+                        return;
+                    }
                     var price = $("#price").val();
                     if(price==null || price=="" || price==undefined){
                         layer.msg("价格不能为空！");
                         return;
                     }
                     var no = $("#no").val();
+                    var productType = $('#productType').val();
                     var param = {
                         no: no,
                         name: name,
                         unit: unit,
                         specification: specification,
-                        price: price
+                        price: price,
+                        productType: $('#productType').val()
                     };
                     var ajaxObj = {url: 'add',param:param,method:"POST",async:false};
                     commonJS.sendAjaxRequest(ajaxObj, function (data) {
@@ -195,7 +259,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">部门</label>
                         <div class="col-sm-10">
-                            <select class="form-control m-b" name="productType">
+                            <select class="form-control m-b" id="productType" name="productType">
                                 <option value="PT01">一部</option>
                                 <option value="PT02">二部</option>
                             </select>

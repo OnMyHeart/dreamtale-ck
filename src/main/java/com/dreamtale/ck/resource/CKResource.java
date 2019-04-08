@@ -169,6 +169,18 @@ public class CKResource {
         return resultJson;
     }
 
+    @PostMapping("/product/edit")
+    public ResultJson<Boolean> editProduct(CkProduct ckProduct) {
+        ResultJson resultJson = new ResultJson();
+        try {
+            resultJson.setData(ckService.addProduct(ckProduct));
+        } catch (Exception e){
+            e.printStackTrace();
+            resultJson.setData(false);
+        }
+        return resultJson;
+    }
+
     @GetMapping("/product/del")
     public ResultJson<Boolean> delProduct(Long id) {
         ResultJson resultJson = new ResultJson();
