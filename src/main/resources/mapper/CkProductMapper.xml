@@ -107,7 +107,7 @@
         status = #{status,jdbcType=SMALLINT},
       </if>
       <if test="productType != null" >
-        #{productType,jdbcType=VARCHAR},
+        product_type = #{productType,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}

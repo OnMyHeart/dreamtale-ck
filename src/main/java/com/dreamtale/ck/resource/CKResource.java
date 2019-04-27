@@ -173,7 +173,7 @@ public class CKResource {
     public ResultJson<Boolean> editProduct(CkProduct ckProduct) {
         ResultJson resultJson = new ResultJson();
         try {
-            resultJson.setData(ckService.addProduct(ckProduct));
+            resultJson.setData(ckService.editProduct(ckProduct));
         } catch (Exception e){
             e.printStackTrace();
             resultJson.setData(false);
