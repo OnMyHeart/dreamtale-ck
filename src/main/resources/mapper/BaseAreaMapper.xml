@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dreamtale.ck.mapper.BaseAreaMapper" >
+  <resultMap id="BaseResultMap" type="com.dreamtale.ck.entity.pojo.BaseArea" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="abbreviation_pinyin" property="abbreviationPinyin" jdbcType="VARCHAR" />
+    <result column="pinyin" property="pinyin" jdbcType="VARCHAR" />
+    <result column="full_name" property="fullName" jdbcType="VARCHAR" />
+    <result column="full_pinyin" property="fullPinyin" jdbcType="VARCHAR" />
+    <result column="abbreviation_full_pinyin" property="abbreviationFullPinyin" jdbcType="VARCHAR" />
+    <result column="sort_index" property="sortIndex" jdbcType="INTEGER" />
+    <result column="parent_url" property="parentUrl" jdbcType="VARCHAR" />
+    <result column="children_url" property="childrenUrl" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    `id` ,`name` ,  `level`,  `parent_id` ,  `abbreviation_pinyin`,  `pinyin`,  `full_name`,  `full_pinyin`,  `abbreviation_full_pinyin` ,
+  `sort_index`,  `parent_url` ,  `children_url`,  `status`,  `create_time` ,  `update_time`
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_area
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from base_area
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.dreamtale.ck.entity.pojo.BaseArea" >
+    insert into base_area (`id` ,`name` ,  `level`,  `parent_id` ,  `abbreviation_pinyin`,  `pinyin`,  `full_name`,  `full_pinyin`,  `abbreviation_full_pinyin` ,
+                           `sort_index`,  `parent_url` ,  `children_url`,  `status`,  `create_time` ,  `update_time`)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
+            #{level,jdbcType=INTEGER},
+            #{parent_id,jdbcType=BIGINT},
+            #{abbreviation_pinyin,jdbcType=VARCHAR},
+            #{pinyin,jdbcType=VARCHAR},
+            #{full_name,jdbcType=VARCHAR},
+            #{full_pinyin,jdbcType=VARCHAR},
+            #{abbreviation_full_pinyin,jdbcType=VARCHAR},
+            #{sort_index,jdbcType=INTEGER},
+            #{parent_url,jdbcType=VARCHAR},
+            #{children_url,jdbcType=VARCHAR},
+            1, now(), now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.dreamtale.ck.entity.pojo.BaseArea" >
+    insert into base_area
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >id,</if>
+      <if test="name != null" >name,</if>
+      <if test="level != null" >level,</if>
+      <if test="parentId != null" >parent_id,</if>
+      <if test="abbreviationPinyin != null" >abbreviation_pinyin,</if>
+      <if test="pinyin != null" >pinyin,</if>
+      <if test="fullName != null" >full_name,</if>
+      <if test="fullPinyin != null" >full_pinyin,</if>
+      <if test="abbreviationFullPinyin != null" >abbreviation_full_pinyin,</if>
+      <if test="sortIndex != null" >sort_index,</if>
+      <if test="parentUrl != null" >parent_url,</if>
+      <if test="childrenUrl != null" >children_url,</if>
+      <if test="status != null" >status,</if>
+      <if test="createTime != null" >create_time,</if>
+      <if test="updateTime != null" >update_time,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >#{id,jdbcType=BIGINT},</if>
+      <if test="name != null" >#{name,jdbcType=VARCHAR},</if>
+      <if test="level != null" >#{level,jdbcType=INTEGER},</if>
+      <if test="parentId != null" >#{parentId,jdbcType=BIGINT},</if>
+      <if test="abbreviationPinyin != null" >#{abbreviationPinyin,jdbcType=VARCHAR},</if>
+      <if test="pinyin != null" >#{pinyin,jdbcType=VARCHAR},</if>
+      <if test="fullName != null" >#{fullName,jdbcType=VARCHAR},</if>
+      <if test="fullPinyin != null" >#{fullPinyin,jdbcType=VARCHAR},</if>
+      <if test="abbreviationFullPinyin != null" >#{abbreviationFullPinyin,jdbcType=VARCHAR},</if>
+      <if test="sortIndex != null" >#{sortIndex,jdbcType=VARCHAR},</if>
+      <if test="parentUrl != null" >#{parentUrl,jdbcType=VARCHAR},</if>
+      <if test="childrenUrl != null" >#{childrenUrl,jdbcType=VARCHAR},</if>
+      <if test="status != null" >#{status,jdbcType=INTEGER},</if>
+      <if test="createTime != null" >now(),</if>
+      <if test="updateTime != null" >now(),</if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dreamtale.ck.entity.pojo.BaseArea" >
+    update base_area
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="abbreviationPinyin != null" >
+        abbreviation_pinyin = #{abbreviationPinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="pinyin != null" >
+        pinyin = #{pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="fullName != null" >
+        full_name = #{fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="fullPinyin != null" >
+        full_pinyin = #{fullPinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="abbreviationFullPinyin != null" >
+        abbreviation_full_pinyin = #{abbreviationFullPinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="sortIndex != null" >
+        sort_index = #{sortIndex,jdbcType=INTEGER},
+      </if>
+      <if test="parentUrl != null" >
+        parent_url = #{parentUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="childrenUrl != null" >
+        children_url = #{childrenUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+        update_time = now()
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dreamtale.ck.entity.pojo.BaseArea" >
+    update base_area set
+      name = #{name,jdbcType=VARCHAR},
+      level = #{level,jdbcType=INTEGER},
+      parent_id = #{parentId,jdbcType=BIGINT},
+      abbreviation_pinyin = #{abbreviationPinyin,jdbcType=VARCHAR},
+      pinyin = #{pinyin,jdbcType=VARCHAR},
+      full_name = #{fullName,jdbcType=VARCHAR},
+      full_pinyin = #{fullPinyin,jdbcType=VARCHAR},
+      abbreviation_full_pinyin = #{abbreviationFullPinyin,jdbcType=VARCHAR},
+      sort_index = #{sortIndex,jdbcType=INTEGER},
+      parent_url = #{parentUrl,jdbcType=VARCHAR},
+      children_url = #{childrenUrl,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      update_time = now()
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
