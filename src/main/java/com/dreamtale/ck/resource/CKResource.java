@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -27,7 +28,7 @@ import java.util.List;
 @RequestMapping("/admin/ck")
 public class CKResource {
 
-    @Autowired
+    @Resource
     CKService ckService;
 
     @GetMapping("/order/queryOrderList")

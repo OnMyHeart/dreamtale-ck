@@ -37,15 +37,15 @@
                            `sort_index`,  `parent_url` ,  `children_url`,  `status`,  `create_time` ,  `update_time`)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
             #{level,jdbcType=INTEGER},
-            #{parent_id,jdbcType=BIGINT},
-            #{abbreviation_pinyin,jdbcType=VARCHAR},
+            #{parentId,jdbcType=BIGINT},
+            #{abbreviationPinyin,jdbcType=VARCHAR},
             #{pinyin,jdbcType=VARCHAR},
-            #{full_name,jdbcType=VARCHAR},
-            #{full_pinyin,jdbcType=VARCHAR},
-            #{abbreviation_full_pinyin,jdbcType=VARCHAR},
-            #{sort_index,jdbcType=INTEGER},
-            #{parent_url,jdbcType=VARCHAR},
-            #{children_url,jdbcType=VARCHAR},
+            #{fullName,jdbcType=VARCHAR},
+            #{fullPinyin,jdbcType=VARCHAR},
+            #{abbreviationFullPinyin,jdbcType=VARCHAR},
+            #{sortIndex,jdbcType=INTEGER},
+            #{parentUrl,jdbcType=VARCHAR},
+            #{childrenUrl,jdbcType=VARCHAR},
             1, now(), now())
   </insert>
   <insert id="insertSelective" parameterType="com.dreamtale.ck.entity.pojo.BaseArea" >

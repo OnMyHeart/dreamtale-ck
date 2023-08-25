@@ -175,9 +175,8 @@ public class BaseAreaSpiderUtils {
         return children;
     }
 
-    private static List<BaseArea> getVillage(String url, String childHref, String className, BaseArea parentBaseArea) throws Exception {
+    public static List<BaseArea> getVillage(String url, String childHref, String className, BaseArea parentBaseArea) throws Exception {
         Document document = getDocument(url + childHref);
-//        Document document = Jsoup.parse(new URL(url + childHref), 30000);
         Elements elements = document.getElementsByClass(className);
         List<BaseArea> villageList = new ArrayList<>();
         int i = 0;

@@ -18,7 +18,6 @@ import java.util.List;
  * @author dream
  */
 @Controller
-@RequestMapping("/admin/ck")
 public class CKController {
 
     @Autowired
