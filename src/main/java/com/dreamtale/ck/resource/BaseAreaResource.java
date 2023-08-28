@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
 @RestController
-@RequestMapping("/base/area")
+@RequestMapping("/admin/base/area")
 public class BaseAreaResource {
 
     @Resource
